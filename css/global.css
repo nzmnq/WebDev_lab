@@ -1,0 +1,23 @@
+body{
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container{
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+a{
+    text-decoration: none;
+    color: #B8BECD;
+}
+
+li{
+    display: block;
+}
+
+p{
+    text-decoration: none;
+    color: #B8BECD;
+}

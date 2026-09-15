@@ -1,0 +1,53 @@
+ .review {
+    background-color: #F8F8F8;
+    width: 100%;
+}
+
+.container.reviews{
+
+    background-image: url(/images/stars.svg);
+    background-repeat: no-repeat;
+    background-position: right 1110px top 304px;
+    padding-bottom: 40px;
+
+    position: relative;
+}
+.reviews__text{
+    width: 400px;
+}
+
+.reviews__title{
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 50px;
+    padding-top: 79px;
+    font-family: "Playfair Display";
+}
+
+
+.reviews__review{
+    font-family: Mulish;
+    font-size: 24px;
+    font-weight: 400;
+    padding-top: 190px;
+}
+
+.reviews__name{
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 700;
+    padding-top: 40px;
+
+}
+.reviews__position{
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    
+}
+
+.reviews__person{
+    position: absolute;
+    top: 150px;
+    right: 190px;
+}
