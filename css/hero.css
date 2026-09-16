@@ -1,5 +1,5 @@
 .hero{
-    padding-top: 100;
+    padding-top: 0;
 }
 .container.hero{
     background-image: url(/images/thousand02.svg);
@@ -14,13 +14,13 @@ padding-bottom: 300px;
 }
 .hero__title{
     font-family: "Playfair Display";
-    font-size: 36;
+    font-size: 36px;
     font-weight: 700;
     line-height: 50px;
 }
 .hero__paragraph{
     font-weight: 300;
-    font-size: 17;
+    font-size: 17px;
     line-height: 30px;
 }
 .hero__download-button{
