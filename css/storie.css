@@ -1,0 +1,79 @@
+.bar__text{
+    display: flex;
+}
+.stories__text{
+    font-family: Playfair Display;
+    font-size: 36px;
+    font-weight: 700;
+    padding-top: 146px;
+    margin-right: 800px;
+}
+.stories__link{
+    width: 60px;
+    height: 79px;
+    padding-top: 200px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FB8F1D;
+    text-decoration: underline;
+}
+
+.container.cards{
+    display: flex;
+}
+.card{
+    justify-content: center;
+    padding-top: 26px;
+    width: 261px;
+    height: 446px;
+    margin: 13px;
+}
+
+.card__image{
+    background-color: aqua;
+    width: 261px;
+    height: 231px;
+}
+
+.card__title{
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.card__paragraph{
+    font-size: 15px;
+    font-weight: 400;
+    color: #7D7987;
+}
+
+.card__image.img1{
+    background-image: url(/images/img1.svg);
+    background-repeat: no-repeat;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+}
+.card__image.img2{
+    background-image: url(/images/img2.svg);
+    background-repeat: no-repeat;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+}
+.card__image.img3{
+    background-image: url(/images/img3.svg);
+    background-repeat: no-repeat;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+}
+.card__image.img4{
+    background-image: url(/images/img4.svg);
+    background-repeat: no-repeat;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+}
+.card__link{
+    width: 90px;
+    height: 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FB8F1D;
+}

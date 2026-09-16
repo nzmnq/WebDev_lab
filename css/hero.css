@@ -1,7 +1,7 @@
 .hero{
     padding-top: 100;
 }
-.container{
+.container.hero{
     background-image: url(/images/thousand02.svg);
     background-repeat: no-repeat;
     background-position: right 50px top 90px;
