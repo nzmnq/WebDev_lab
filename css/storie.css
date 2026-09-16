@@ -1,32 +1,35 @@
-.bar__text{
+.bar__text {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 50px;
 }
-.stories__text{
-    font-family: Playfair Display;
+
+.stories__text {
+    font-family: "Playfair Display";
     font-size: 36px;
     font-weight: 700;
-    padding-top: 146px;
-    margin-right: 800px;
+    margin: 0;
+    padding-top: 100px;
 }
-.stories__link{
-    width: 60px;
-    height: 79px;
-    padding-top: 200px;
+
+.stories__link {
     font-size: 15px;
     font-weight: 600;
     color: #FB8F1D;
     text-decoration: underline;
+    margin-bottom: 8px;
 }
 
-.container.cards{
+.container.cards {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0;
 }
-.card{
-    justify-content: center;
-    padding-top: 26px;
+
+.card {
     width: 261px;
-    height: 446px;
-    margin: 13px;
 }
 
 .card__image{
