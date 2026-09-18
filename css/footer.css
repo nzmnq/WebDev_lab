@@ -46,7 +46,7 @@
 }
 
 .footer__social__link {
-    display: inline-flex;
+    display: inline;
     align-items: center;
     justify-content: center;
     text-decoration: none;
