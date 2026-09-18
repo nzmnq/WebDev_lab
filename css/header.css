@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    padding-top: 25px;
+    padding-top: 20px;
 }
 .header__nav ul{
     display: flex;
@@ -34,10 +34,10 @@
 }
 
 .login__button{
+
+    padding: 15px 45px;
     border-radius: 8px;
     border: 1px solid;
-    width: 132px;
-    height: 44px;
     font-size: 15px;
     background-color: white;
     color: #FB8F1D;
@@ -48,8 +48,7 @@
 
 .register__button{
     border-radius: 8px;
-    width: 132px;
-    height: 44px;
+    padding: 15px 40px;
     font-size: 15px;
     font-weight: 500;
     background-color: #FB8F1D;
