@@ -33,3 +33,59 @@ padding-bottom: 300px;
     color: #fff;
     border: none;
 }
+
+@media (max-width: 992px) {
+    .container.hero {
+        background-position: right -60px top 140px;
+        background-size: 420px auto;
+    }
+    .hero__inner {
+        width: 55%;
+        padding-top: 120px;
+        padding-bottom: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container.hero {
+        background-position: center bottom 20px;
+        background-size: 280px auto;
+    }
+    .hero__inner {
+        width: 100%;
+        padding-top: 40px;
+        padding-bottom: 310px;
+    }
+    .hero__title {
+        font-size: 30px;
+        line-height: 42px;
+    }
+    .hero__paragraph {
+        font-size: 15px;
+        line-height: 26px;
+    }
+    .hero__download-button {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 360px) {
+    .container.hero {
+        background-size: 240px auto;
+    }
+    .hero__inner {
+        padding-bottom: 270px;
+    }
+    .hero__title {
+        font-size: 24px;
+        line-height: 34px;
+    }
+    .hero__paragraph {
+        font-size: 14px;
+        line-height: 24px;
+    }
+    .hero__download-button {
+        padding: 12px 30px;
+        font-size: 15px;
+    }
+}

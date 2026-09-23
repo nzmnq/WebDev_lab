@@ -55,3 +55,103 @@
     color: #fff;
     border: none;
 }
+
+.header__burger {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .header__title {
+        position: static;
+        order: 1;
+    }
+
+    .header__burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 20px;
+        order: 2;
+        z-index: 100;
+    }
+
+    .header__burger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: #202336;
+        border-radius: 3px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .header.active .header__burger span:nth-child(1) {
+        transform: translateY(8.5px) rotate(45deg);
+    }
+
+    .header.active .header__burger span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .header.active .header__burger span:nth-child(3) {
+        transform: translateY(-8.5px) rotate(-45deg);
+    }
+
+    .header__nav {
+        display: none;
+        width: 100%;
+        order: 3;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .header__button {
+        display: none;
+        width: 100%;
+        order: 4;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+        align-items: center;
+    }
+
+    .header.active .header__nav {
+        display: block;
+        animation: fadeIn 0.2s ease forwards;
+    }
+
+    .header.active .header__button {
+        display: flex;
+        animation: fadeIn 0.2s ease forwards;
+    }
+
+    .header__nav ul {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .header__nav li {
+        margin-right: 0;
+    }
+
+    .login__button {
+        margin-right: 0;
+        width: 100%;
+        max-width: 220px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .register__button {
+        width: 100%;
+        max-width: 220px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}

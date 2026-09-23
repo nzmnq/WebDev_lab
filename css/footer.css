@@ -79,3 +79,29 @@
 .social__image.logo5 {
     background-image: url(/images/logo5.svg);
 }
+
+@media (max-width: 576px) {
+    .footer {
+        margin-top: 50px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .footer__top {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    .footer__socials {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 360px) {
+    .footer__copyright {
+        font-size: 13px;
+    }
+    .footer__socials {
+        gap: 16px;
+    }
+}
