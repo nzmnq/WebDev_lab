@@ -123,8 +123,17 @@ function initEventListeners() {
         helicopters = helicopters.filter(heli => heli.id !== id);
         updateView();
       } else if (e.target.classList.contains("btn-card-edit")) {
-        const id = e.target.dataset.id;
-        alert(`Edit helicopter ID: ${id}`);
+        const id = Number(e.target.dataset.id);
+        const heli = helicopters.find(h => h.id === id);
+        if (heli) {
+          const params = new URLSearchParams({
+            name: heli.name,
+            speed: heli.maxSpeed,
+            pass: heli.passengers,
+            desc: heli.description
+          });
+          window.location.href = `./edit.html?${params.toString()}`;
+        }
       }
     });
   }
