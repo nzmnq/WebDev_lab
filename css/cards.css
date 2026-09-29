@@ -1,0 +1,104 @@
+.content {
+  flex: 1;
+  padding: 24px 32px;
+  background-color: #ffffff;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  border: 1px solid #b5b5b5;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.card__image {
+  background-color: #eeeeee;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.card__image-text {
+  font-size: 26px;
+  font-weight: 700;
+  color: #8da4be;
+  letter-spacing: 0.5px;
+}
+
+.card__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+}
+
+.card__desc {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #333333;
+  margin-bottom: 12px;
+}
+
+.card__specs {
+  font-size: 13px;
+  color: #444444;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.card__specs strong {
+  color: #111111;
+}
+
+.card__updated {
+  font-size: 12.5px;
+  color: #888888;
+  margin-bottom: 18px;
+}
+
+.card__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.btn-card-edit {
+  flex: 1;
+  height: 32px;
+  background-color: #50b6dc;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-card-remove {
+  flex: 1;
+  height: 32px;
+  background-color: #d3514d;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}

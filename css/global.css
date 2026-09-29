@@ -1,53 +1,17 @@
-*, *::before, *::after {
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
-    overflow-x: hidden;
-    width: 100%;
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #ffffff;
+  color: #222222;
+  line-height: 1.4;
 }
 
-body{
-    font-family: "Inter", sans-serif;
-    margin: 0;
-    padding: 0;
-}
-.container{
-    margin: 0 auto;
-    max-width: 1300px;
-    width: 100%;
-    padding: 0 20px;
-}
-
-a{
-    text-decoration: none;
-    color: #B8BECD;
-}
-
-li{
-    display: block;
-}
-
-p{
-    text-decoration: none;
-    color: #B8BECD;
-}
-
-/* ============================================================
-   4K screens (2560px) Optimization
-   Requirement: for 2560px (4K screens).
-   Hint: fit website content inside regular screen width container & center horizontally
-   ============================================================ */
-@media (min-width: 1921px), (min-width: 2560px) {
-    html {
-        background-color: #f8f9fa;
-    }
-
-    body {
-        max-width: 1440px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        box-shadow: 0 0 60px rgba(0, 0, 0, 0.06);
-        position: relative;
-    }
+.main-container {
+  display: flex;
+  min-height: calc(100vh - 58px);
 }

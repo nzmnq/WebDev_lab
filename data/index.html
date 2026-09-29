@@ -1,134 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thousand sunny</title>
-    <link rel="icon" type="images/svg" href="/images/logo.svg">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Page — Helicopters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <section class="hero">
-        <div class="container">
-            <header class="header">
-                <nav class="header__nav">
-                    <ul>
-                        <li><a href="" class="header__item" target="_blank">Home</a></li>
-                        <li><a href="" target="_blank">Destinations</a></li>
-                        <li><a href="" target="_blank">About</a></li>
-                        <li><a href="" target="_blank">Partner</a></li>
-                    </ul>
-                </nav>
-                <div class="header__title">
-                    <img src="/images/logo.svg">
-                </div>
-                <div class="header__button">
-                    <a class="login__button" href="">Login</a>
-                    <a class="register__button" href="">Register</a>
-                </div>
-                <div class="header__burger" id="burger" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>    
-            </header>
+  <header class="header">
+    <div class="header__left">
+      <div class="header__brand">HeliHub</div>
+      <nav class="header__nav">
+        <div class="header__nav-item active">My Helicopters</div>
+        <div class="header__nav-item">Create Helicopter</div>
+      </nav>
+    </div>
+
+    <div class="header__right">
+      <input type="text" id="search-input" class="search-input" placeholder="Type something..." />
+      <button type="button" id="search-btn" class="btn-search">Search</button>
+      <button type="button" id="clear-btn" class="btn-clear">Clear</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <aside class="sidebar">
+      <h2 class="sidebar__title">Manage helicopters</h2>
+
+      <div class="sidebar__sort">
+        <span class="sort-label">Sort by the fastest helicopters</span>
+        <div class="switch-toggle" id="sort-toggle" title="Toggle sorting">
+          <span class="switch-knob"></span>
         </div>
-        <div class="container hero">
-            <div class="hero__inner">
-                <h1 class="hero__title">Guides by Thousand Sunny</h1>
-                <p class="hero__paragraph">Packed with tips and advice from our on-the-ground experts, our city guides app (iOS and Android) is the ultimate resource before and during a trip.</p>
-                <a class="hero__download-button" href="">Download</a>
-            </div>
-        </div>
+      </div>
+
+      <hr class="sidebar__divider">
+
+      <div class="sidebar__count">
+        <div class="sidebar__count-title">Count total passenger capacity:</div>
+        <button type="button" id="count-btn" class="btn-count">Count</button>
+      </div>
+
+      <div class="sidebar__total">
+        <span class="total-label">Total passengers:</span>
+        <span class="total-value" id="total-value">—</span>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="cards-grid" id="cards-grid">
+      </div>
     </section>
-    <section class="review">
-        <div class="container reviews">
-            <div class="reviews__text">
-                <h1 class="reviews__title">Testimonials</h1>
-                <p class="reviews__review">“Quisque in lacus a urna fermentum euismod. Integer mi nibh, dapibus ac scelerisque eu, facilisis quis purus. Morbi blandit sit amet turpis nec”</p>
-                <h3 class="reviews__name">Edward Newgate</h3>
-                <h4 class="reviews__position">Founder Circle</h4>
-                <img class="reviews__person" src="/images/photo.svg">
-            </div>
-        </div>
-    </section>
-    <section class="container storie">
-        <div class="stories">
-            <div class="bar__text">
-                <h1 class="stories__text">Trending stories</h1>
-                <a class="stories__link" href="" target="_blank">View all > </a>
-            </div>
-            <section class="container cards">
-                <div class="card">
-                    <div class="card__image img1"></div>
-                    <h3 class="card__title">The many benefits of taking a healing holiday</h3>
-                    <p class="card__paragraph">‘Helaing holidays’ are on the rise tohelp maximise your health and happines...</p>
-                    <a class="card__link" href="" target="_blank">Read more</a>
-                </div>
-                <div class="card">
-                    <div class="card__image img2"></div>
-                    <h3 class="card__title">The best Kyoto restaurant to try Japanese food</h3>
-                    <p class="card__paragraph">From tofu to teahouses, here’s our guide to Kyoto’s best restaurants to visit...</p>
-                    <a class="card__link" href="" target="_blank">Read more</a>
-
-                </div>
-                <div class="card">
-                    <div class="card__image img3"></div>
-                    <h3 class="card__title">Skip Chichen Itza and head to this remote Yucatan</h3>
-                    <p class="card__paragraph">It’s remote and challenging to get,but braving the jungle and exploring these ruins without the...</p>
-                    <a class="card__link" href="" target="_blank">Read more</a>
-                </div>
-                <div class="card">
-                    <div class="card__image img4"></div>
-                    <h3 class="card__title">Surf’s up at these beginner spots around the world</h3>
-                    <p class="card__paragraph">If learning to surf has in on your to-do list for a while, the good newsis: it’s never too late...</p>
-                    <a class="card__link" href="" target="_blank">Read more</a>
-                </div>
-            </section>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__top">
-                <div class="footer__logo"></div>
-                <p class="footer__copyright">©2020 Thousand Sunny. All rights reserved</p>
-            </div>
-            <hr class="footer__divider">
-            <div class="footer__socials">
-
-                <a href="" class="footer__social__link" label="Twitter" target="_blank">
-                    <div class="social__image logo1"></div>
-                </a>
-
-                <a href="" class="footer__social__link" label="Facebook" target="_blank">
-                    <div class="social__image logo2"></div>
-                </a>
-
-                <a href="" class="footer__social__link" label="Instagram" target="_blank">
-                    <div class="social__image logo3"></div>
-                </a>
-                <a href="" class="footer__social__link" label="LinkedIn" target="_blank">
-                <div class="social__image logo4"></div>
-                </a>
-                <a href="" class="footer__social__link" label="YouTube" target="_blank">
-                    <div class="social__image logo5"></div>
-                </a>
-
-            </div>
-        </div>
-    </footer>
-    <script src="/js/main.js"></script>
+  </main>
+  <script src="../js/dom.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
