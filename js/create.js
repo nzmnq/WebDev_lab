@@ -73,6 +73,35 @@ document.addEventListener("DOMContentLoaded", () => {
         alertBox.classList.remove("visible");
       }
 
+      const newHelicopter = {
+        id: Date.now(),
+        name: nameInput.value.trim(),
+        description: descInput.value.trim(),
+        maxSpeed: Number(speedInput.value),
+        passengers: Number(passengersInput.value)
+      };
+
+      addedHelicopters.push(newHelicopter);
+
+      try {
+        const stored = localStorage.getItem("helicopters");
+        let list = stored ? JSON.parse(stored) : [
+          { id: 1, name: "Sikorsky UH-60", passengers: 14, maxSpeed: 295, description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації." },
+          { id: 2, name: "Boeing CH-47 Chinook", passengers: 55, maxSpeed: 315, description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів." },
+          { id: 3, name: "Eurocopter EC135", passengers: 7, maxSpeed: 287, description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах." },
+          { id: 4, name: "Bell 206 JetRanger", passengers: 4, maxSpeed: 222, description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації." },
+          { id: 5, name: "AgustaWestland AW101", passengers: 30, maxSpeed: 309, description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій." }
+        ];
+        list.push(newHelicopter);
+        localStorage.setItem("helicopters", JSON.stringify(list));
+
+        const storedAdded = JSON.parse(localStorage.getItem("addedHelicopters") || "[]");
+        storedAdded.push(newHelicopter);
+        localStorage.setItem("addedHelicopters", JSON.stringify(storedAdded));
+      } catch (err) {}
+
+      form.reset();
+
       Modal.show({
         title: "Success",
         message: "Helicopter has been successfully validated and created!",
@@ -93,3 +122,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+const addedHelicopters = [];

@@ -36,7 +36,29 @@ const INITIAL_HELICOPTERS = [
   }
 ];
 
-let helicopters = [...INITIAL_HELICOPTERS];
+function getStoredHelicopters() {
+  try {
+    const stored = localStorage.getItem("helicopters");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+    const legacyAdded = localStorage.getItem("addedHelicopters");
+    if (legacyAdded) {
+      const merged = [...INITIAL_HELICOPTERS, ...JSON.parse(legacyAdded)];
+      localStorage.setItem("helicopters", JSON.stringify(merged));
+      return merged;
+    }
+  } catch (err) {}
+  try {
+    localStorage.setItem("helicopters", JSON.stringify(INITIAL_HELICOPTERS));
+  } catch (err) {}
+  return [...INITIAL_HELICOPTERS];
+}
+
+let helicopters = getStoredHelicopters();
 let isSorted = false;
 let searchQuery = "";
 let isCounted = false;
@@ -121,12 +143,21 @@ function initEventListeners() {
       if (e.target.classList.contains("btn-card-remove")) {
         const id = Number(e.target.dataset.id);
         helicopters = helicopters.filter(heli => heli.id !== id);
+        try {
+          localStorage.setItem("helicopters", JSON.stringify(helicopters));
+          const stored = localStorage.getItem("addedHelicopters");
+          if (stored) {
+            const added = JSON.parse(stored).filter(heli => heli.id !== id);
+            localStorage.setItem("addedHelicopters", JSON.stringify(added));
+          }
+        } catch (err) {}
         updateView();
       } else if (e.target.classList.contains("btn-card-edit")) {
         const id = Number(e.target.dataset.id);
         const heli = helicopters.find(h => h.id === id);
         if (heli) {
           const params = new URLSearchParams({
+            id: heli.id,
             name: heli.name,
             speed: heli.maxSpeed,
             pass: heli.passengers,

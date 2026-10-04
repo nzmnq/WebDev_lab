@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const urlParams = new URLSearchParams(window.location.search);
+  const heliId = urlParams.get("id");
   const heliName = urlParams.get("name");
   const heliSpeed = urlParams.get("speed");
   const heliPass = urlParams.get("pass");
@@ -90,6 +91,40 @@ document.addEventListener("DOMContentLoaded", () => {
       if (alertBox) {
         alertBox.classList.remove("visible");
       }
+
+      const updatedData = {
+        name: nameInput.value.trim(),
+        description: descInput.value.trim(),
+        maxSpeed: Number(speedInput.value),
+        passengers: Number(passengersInput.value)
+      };
+
+      try {
+        const stored = localStorage.getItem("helicopters");
+        let list = stored ? JSON.parse(stored) : [
+          { id: 1, name: "Sikorsky UH-60", passengers: 14, maxSpeed: 295, description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації." },
+          { id: 2, name: "Boeing CH-47 Chinook", passengers: 55, maxSpeed: 315, description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів." },
+          { id: 3, name: "Eurocopter EC135", passengers: 7, maxSpeed: 287, description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах." },
+          { id: 4, name: "Bell 206 JetRanger", passengers: 4, maxSpeed: 222, description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації." },
+          { id: 5, name: "AgustaWestland AW101", passengers: 30, maxSpeed: 309, description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій." }
+        ];
+
+        const idx = list.findIndex(h => (heliId && String(h.id) === String(heliId)) || h.name === (heliName || sampleHelicopter.name));
+        if (idx !== -1) {
+          list[idx] = { ...list[idx], ...updatedData };
+          localStorage.setItem("helicopters", JSON.stringify(list));
+        }
+
+        const storedAdded = localStorage.getItem("addedHelicopters");
+        if (storedAdded) {
+          const added = JSON.parse(storedAdded);
+          const aIdx = added.findIndex(h => (heliId && String(h.id) === String(heliId)) || h.name === (heliName || sampleHelicopter.name));
+          if (aIdx !== -1) {
+            added[aIdx] = { ...added[aIdx], ...updatedData };
+            localStorage.setItem("addedHelicopters", JSON.stringify(added));
+          }
+        }
+      } catch (err) {}
 
       Modal.show({
         title: "Success",
