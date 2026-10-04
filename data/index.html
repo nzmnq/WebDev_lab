@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Page — Helicopters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header__left">
+      <div class="header__brand">MyHeli</div>
+      <nav class="header__nav">
+        <a href="./index.html" class="header__nav-item active">My Helicopters</a>
+        <a href="./create.html" class="header__nav-item">Create Helicopter</a>
+      </nav>
+    </div>
+
+    <div class="header__right">
+      <input type="text" id="search-input" class="search-input" placeholder="Type something..." />
+      <button type="button" id="search-btn" class="btn-search">Search</button>
+      <button type="button" id="clear-btn" class="btn-clear">Clear</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <aside class="sidebar">
+      <h2 class="sidebar__title">Manage helicopters</h2>
+
+      <div class="sidebar__sort">
+        <span class="sort-label">Sort by the fastest helicopters</span>
+        <div class="switch-toggle" id="sort-toggle" title="Toggle sorting">
+          <span class="switch-knob"></span>
+        </div>
+      </div>
+
+      <hr class="sidebar__divider">
+
+      <div class="sidebar__count">
+        <div class="sidebar__count-title">Count total passenger capacity:</div>
+        <button type="button" id="count-btn" class="btn-count">Count</button>
+      </div>
+
+      <div class="sidebar__total">
+        <span class="total-label">Total passengers:</span>
+        <span class="total-value" id="total-value">—</span>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="cards-grid" id="cards-grid">
+      </div>
+    </section>
+  </main>
+  <script src="../js/dom.js"></script>
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>

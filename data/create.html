@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Helicopter — HeliHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header__left">
+      <div class="header__brand">HeliHub</div>
+      <nav class="header__nav">
+        <a href="./index.html" class="header__nav-item">My Helicopters</a>
+        <a href="./create.html" class="header__nav-item active">Create Helicopter</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="form-container">
+    <h1 class="form-title">Create helicopter</h1>
+
+    <form class="form" id="create-form" novalidate>
+      <div class="form-group">
+        <label for="name" class="form-label">Title</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="form-input" 
+          placeholder="e.g. Sikorsky UH-60" 
+          required 
+          minlength="3" 
+          maxlength="50"
+        >
+        <span class="form-hint">At least 3 characters</span>
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+          id="description" 
+          name="description" 
+          class="form-textarea" 
+          placeholder="Enter a brief description..." 
+          required 
+          minlength="10" 
+          maxlength="300"
+        ></textarea>
+        <span class="form-hint">Between 10 and 300 characters</span>
+      </div>
+
+      <div class="form-group">
+        <label for="maxSpeed" class="form-label">Max speed (km/h)</label>
+        <input 
+          type="number" 
+          id="maxSpeed" 
+          name="maxSpeed" 
+          class="form-input" 
+          placeholder="e.g. 295" 
+          required 
+          min="50" 
+          max="600" 
+          step="1"
+        >
+        <span class="form-hint">From 50 to 600 km/h</span>
+      </div>
+
+      <div class="form-group">
+        <label for="passengers" class="form-label">Passenger capacity</label>
+        <input 
+          type="number" 
+          id="passengers" 
+          name="passengers" 
+          class="form-input" 
+          placeholder="e.g. 14" 
+          required 
+          min="1" 
+          max="150" 
+          step="1"
+        >
+        <span class="form-hint">From 1 to 150 passengers</span>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submit-btn">Create</button>
+      <a href="./index.html" class="btn-back">Cancel and return to catalog</a>
+
+      <div class="form-alert" id="form-alert">
+        Please check that all fields are filled in correctly!
+      </div>
+    </form>
+  </main>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-title">Validation Error</h3>
+        <button type="button" class="modal__close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal__body" id="modal-body"></div>
+      <div class="modal__footer">
+        <button type="button" class="modal__btn" id="modal-ok-btn">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/modal.js"></script>
+  <script type="module" src="../js/create.js"></script>
+</body>
+</html>
