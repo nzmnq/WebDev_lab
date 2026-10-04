@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { getHelicopterById, updateHelicopter } from "./api.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
   const form = document.getElementById("edit-form");
   const nameInput = document.getElementById("name");
   const descInput = document.getElementById("description");
@@ -15,15 +17,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const heliId = urlParams.get("id");
-  const heliName = urlParams.get("name");
-  const heliSpeed = urlParams.get("speed");
-  const heliPass = urlParams.get("pass");
-  const heliDesc = urlParams.get("desc");
 
-  nameInput.value = heliName || sampleHelicopter.name;
-  descInput.value = heliDesc || sampleHelicopter.description;
-  speedInput.value = heliSpeed || sampleHelicopter.maxSpeed;
-  passengersInput.value = heliPass || sampleHelicopter.passengers;
+  if (heliId) {
+    try {
+      const heli = await getHelicopterById(heliId);
+      if (heli) {
+        nameInput.value = heli.name || "";
+        descInput.value = heli.description || "";
+        speedInput.value = heli.maxSpeed || "";
+        passengersInput.value = heli.passengers || "";
+      }
+    } catch (err) {
+      console.error(err);
+      nameInput.value = sampleHelicopter.name;
+      descInput.value = sampleHelicopter.description;
+      speedInput.value = sampleHelicopter.maxSpeed;
+      passengersInput.value = sampleHelicopter.passengers;
+    }
+  } else {
+    nameInput.value = sampleHelicopter.name;
+    descInput.value = sampleHelicopter.description;
+    speedInput.value = sampleHelicopter.maxSpeed;
+    passengersInput.value = sampleHelicopter.passengers;
+  }
 
   function validateForm() {
     const errors = [];
@@ -71,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return errors;
   }
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const errors = validateForm();
@@ -100,40 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const stored = localStorage.getItem("helicopters");
-        let list = stored ? JSON.parse(stored) : [
-          { id: 1, name: "Sikorsky UH-60", passengers: 14, maxSpeed: 295, description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації." },
-          { id: 2, name: "Boeing CH-47 Chinook", passengers: 55, maxSpeed: 315, description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів." },
-          { id: 3, name: "Eurocopter EC135", passengers: 7, maxSpeed: 287, description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах." },
-          { id: 4, name: "Bell 206 JetRanger", passengers: 4, maxSpeed: 222, description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації." },
-          { id: 5, name: "AgustaWestland AW101", passengers: 30, maxSpeed: 309, description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій." }
-        ];
-
-        const idx = list.findIndex(h => (heliId && String(h.id) === String(heliId)) || h.name === (heliName || sampleHelicopter.name));
-        if (idx !== -1) {
-          list[idx] = { ...list[idx], ...updatedData };
-          localStorage.setItem("helicopters", JSON.stringify(list));
+        if (heliId) {
+          await updateHelicopter(heliId, updatedData);
         }
 
-        const storedAdded = localStorage.getItem("addedHelicopters");
-        if (storedAdded) {
-          const added = JSON.parse(storedAdded);
-          const aIdx = added.findIndex(h => (heliId && String(h.id) === String(heliId)) || h.name === (heliName || sampleHelicopter.name));
-          if (aIdx !== -1) {
-            added[aIdx] = { ...added[aIdx], ...updatedData };
-            localStorage.setItem("addedHelicopters", JSON.stringify(added));
+        Modal.show({
+          title: "Success",
+          message: "Helicopter details have been successfully updated!",
+          type: "success",
+          onClose: () => {
+            window.location.href = "./index.html";
           }
-        }
-      } catch (err) {}
-
-      Modal.show({
-        title: "Success",
-        message: "Helicopter details have been successfully updated!",
-        type: "success",
-        onClose: () => {
-          window.location.href = "./index.html";
-        }
-      });
+        });
+      } catch (err) {
+        Modal.show({
+          title: "Server Error",
+          message: "Failed to update helicopter on the server.",
+          type: "error"
+        });
+      }
     }
   });
 

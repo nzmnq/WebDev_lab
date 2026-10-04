@@ -1,64 +1,6 @@
-const INITIAL_HELICOPTERS = [
-  {
-    id: 1,
-    name: "Sikorsky UH-60",
-    passengers: 14,
-    maxSpeed: 295,
-    description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації."
-  },
-  {
-    id: 2,
-    name: "Boeing CH-47 Chinook",
-    passengers: 55,
-    maxSpeed: 315,
-    description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів."
-  },
-  {
-    id: 3,
-    name: "Eurocopter EC135",
-    passengers: 7,
-    maxSpeed: 287,
-    description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах."
-  },
-  {
-    id: 4,
-    name: "Bell 206 JetRanger",
-    passengers: 4,
-    maxSpeed: 222,
-    description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації."
-  },
-  {
-    id: 5,
-    name: "AgustaWestland AW101",
-    passengers: 30,
-    maxSpeed: 309,
-    description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій."
-  }
-];
+import { getAllhHeli, deleteHelicopter } from "./api.js";
 
-function getStoredHelicopters() {
-  try {
-    const stored = localStorage.getItem("helicopters");
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    }
-    const legacyAdded = localStorage.getItem("addedHelicopters");
-    if (legacyAdded) {
-      const merged = [...INITIAL_HELICOPTERS, ...JSON.parse(legacyAdded)];
-      localStorage.setItem("helicopters", JSON.stringify(merged));
-      return merged;
-    }
-  } catch (err) {}
-  try {
-    localStorage.setItem("helicopters", JSON.stringify(INITIAL_HELICOPTERS));
-  } catch (err) {}
-  return [...INITIAL_HELICOPTERS];
-}
-
-let helicopters = getStoredHelicopters();
+let helicopters = [];
 let isSorted = false;
 let searchQuery = "";
 let isCounted = false;
@@ -92,6 +34,15 @@ function updateView() {
   if (isCounted) {
     const total = calculateTotalPassengers(items);
     DOM.renderTotal(total);
+  }
+}
+
+async function loadHelicopters() {
+  try {
+    helicopters = await getAllhHeli();
+    updateView();
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -139,36 +90,23 @@ function initEventListeners() {
   }
 
   if (DOM.cardsGrid) {
-    DOM.cardsGrid.addEventListener("click", (e) => {
+    DOM.cardsGrid.addEventListener("click", async (e) => {
       if (e.target.classList.contains("btn-card-remove")) {
         const id = Number(e.target.dataset.id);
-        helicopters = helicopters.filter(heli => heli.id !== id);
         try {
-          localStorage.setItem("helicopters", JSON.stringify(helicopters));
-          const stored = localStorage.getItem("addedHelicopters");
-          if (stored) {
-            const added = JSON.parse(stored).filter(heli => heli.id !== id);
-            localStorage.setItem("addedHelicopters", JSON.stringify(added));
-          }
-        } catch (err) {}
-        updateView();
+          await deleteHelicopter(id);
+          helicopters = helicopters.filter(heli => heli.id !== id);
+          updateView();
+        } catch (err) {
+          console.error(err);
+        }
       } else if (e.target.classList.contains("btn-card-edit")) {
         const id = Number(e.target.dataset.id);
-        const heli = helicopters.find(h => h.id === id);
-        if (heli) {
-          const params = new URLSearchParams({
-            id: heli.id,
-            name: heli.name,
-            speed: heli.maxSpeed,
-            pass: heli.passengers,
-            desc: heli.description
-          });
-          window.location.href = `./edit.html?${params.toString()}`;
-        }
+        window.location.href = `./edit.html?id=${id}`;
       }
     });
   }
 }
 
 initEventListeners();
-updateView();
+loadHelicopters();
