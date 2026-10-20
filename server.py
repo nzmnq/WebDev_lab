@@ -2,6 +2,7 @@ import os
 import json
 import re
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from urllib.parse import urlparse, parse_qs
 
 PORT = 3000
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json")
@@ -15,6 +16,24 @@ def load_data():
 def save_data(data):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+def search_helicopters(items, query):
+    if not query:
+        return items
+    normalized_query = query.strip().lower()
+    if not normalized_query:
+        return items
+    return [
+        item for item in items
+        if normalized_query in str(item.get("name", "")).lower()
+        or normalized_query in str(item.get("description", "")).lower()
+    ]
+
+def count_helicopters(items):
+    return len(items)
+
+def calculate_total_passengers(items):
+    return sum(int(item.get("passengers", 0) or 0) for item in items)
 
 class RequestHandler(BaseHTTPRequestHandler):
     def send_cors_headers(self):
@@ -42,11 +61,30 @@ class RequestHandler(BaseHTTPRequestHandler):
         return json.loads(body_bytes.decode("utf-8"))
 
     def do_GET(self):
-        path = self.path.split("?")[0].rstrip("/")
+        parsed_url = urlparse(self.path)
+        path = parsed_url.path.rstrip("/")
+        query_params = parse_qs(parsed_url.query)
         items = load_data()
 
-        if path == "/api/helicopters":
+        search_query = (
+            query_params.get("search", [""])[0]
+            or query_params.get("q", [""])[0]
+            or query_params.get("query", [""])[0]
+        )
+
+        if path in ("/api/helicopters", "/api/helicopters/search"):
+            if search_query:
+                items = search_helicopters(items, search_query)
             self.send_json(200, items)
+            return
+
+        if path in ("/api/helicopters/count", "/api/helicopters/total-passengers"):
+            if search_query:
+                items = search_helicopters(items, search_query)
+            self.send_json(200, {
+                "count": count_helicopters(items),
+                "totalPassengers": calculate_total_passengers(items),
+            })
             return
 
         match = re.match(r"^/api/helicopters/(\d+)$", path)

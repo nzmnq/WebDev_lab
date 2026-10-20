@@ -19,12 +19,28 @@ const baseRequest = async ({urlPath = "", method = 'GET', body = null}) => {
     }
 }
 
-export const getAllhHeli = async () => {
-    const rawResp = await baseRequest({method: "GET"});
+export const getAllhHeli = async (search = "") => {
+    const queryParam = search ? `?search=${encodeURIComponent(search.trim())}` : "";
+    const rawResp = await baseRequest({urlPath: queryParam, method: "GET"});
     return rawResp.json();
 }
 
 export const getAllHelicopters = getAllhHeli;
+
+export const searchHelicopters = async (query = "") => {
+    return getAllhHeli(query);
+}
+
+export const getHelicoptersCount = async (search = "") => {
+    const queryParam = search ? `?search=${encodeURIComponent(search.trim())}` : "";
+    const rawResp = await baseRequest({urlPath: `/count${queryParam}`, method: "GET"});
+    return rawResp.json();
+}
+
+export const getTotalPassengers = async (search = "") => {
+    const data = await getHelicoptersCount(search);
+    return data.totalPassengers;
+}
 
 export const getHelicopterById = async (id) => {
     const rawResp = await baseRequest({urlPath: `/${id}`, method: "GET"});

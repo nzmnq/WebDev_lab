@@ -1,4 +1,4 @@
-import { getAllhHeli, deleteHelicopter } from "./api.js";
+import { getAllhHeli, deleteHelicopter, getHelicoptersCount } from "./api.js";
 
 let helicopters = [];
 let isSorted = false;
@@ -6,13 +6,7 @@ let searchQuery = "";
 let isCounted = false;
 
 function getFilteredItems() {
-  const query = searchQuery.toLowerCase();
-  if (!query) return [...helicopters];
-
-  return helicopters.filter(heli => 
-    heli.name.toLowerCase().includes(query) ||
-    heli.description.toLowerCase().includes(query)
-  );
+  return [...helicopters];
 }
 
 function getProcessedItems() {
@@ -23,8 +17,13 @@ function getProcessedItems() {
   return filtered;
 }
 
-function calculateTotalPassengers(items) {
-  return items.reduce((total, heli) => total + Number(heli.passengers || 0), 0);
+async function updateTotalPassengers() {
+  try {
+    const { totalPassengers } = await getHelicoptersCount(searchQuery);
+    DOM.renderTotal(totalPassengers);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function updateView() {
@@ -32,14 +31,13 @@ function updateView() {
   DOM.renderCards(items);
 
   if (isCounted) {
-    const total = calculateTotalPassengers(items);
-    DOM.renderTotal(total);
+    updateTotalPassengers();
   }
 }
 
-async function loadHelicopters() {
+async function loadHelicopters(query = searchQuery) {
   try {
-    helicopters = await getAllhHeli();
+    helicopters = await getAllhHeli(query);
     updateView();
   } catch (err) {
     console.error(err);
@@ -50,7 +48,7 @@ function initEventListeners() {
   if (DOM.searchBtn) {
     DOM.searchBtn.addEventListener("click", () => {
       searchQuery = DOM.getSearchValue();
-      updateView();
+      loadHelicopters(searchQuery);
     });
   }
 
@@ -59,7 +57,7 @@ function initEventListeners() {
       if (e.key === "Enter") {
         e.preventDefault();
         searchQuery = DOM.getSearchValue();
-        updateView();
+        loadHelicopters(searchQuery);
       }
     });
   }
@@ -68,7 +66,7 @@ function initEventListeners() {
     DOM.clearBtn.addEventListener("click", () => {
       DOM.clearSearchInput();
       searchQuery = "";
-      updateView();
+      loadHelicopters("");
     });
   }
 
@@ -83,9 +81,7 @@ function initEventListeners() {
   if (DOM.countBtn) {
     DOM.countBtn.addEventListener("click", () => {
       isCounted = true;
-      const items = getProcessedItems();
-      const total = calculateTotalPassengers(items);
-      DOM.renderTotal(total);
+      updateTotalPassengers();
     });
   }
 
