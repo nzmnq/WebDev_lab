@@ -1,10 +1,14 @@
-const http = require("http");
+const express = require("express");
+const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const { URL } = require("url");
 
+const app = express();
 const PORT = 3000;
 const DATA_FILE = path.join(__dirname, "data.json");
+
+app.use(cors());
+app.use(express.json());
 
 function loadData() {
   if (!fs.existsSync(DATA_FILE)) {
@@ -41,189 +45,96 @@ function calculateTotalPassengers(items) {
   return items.reduce((sum, item) => sum + (Number(item.passengers) || 0), 0);
 }
 
-function sendJson(res, statusCode, data) {
-  res.writeHead(statusCode, {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Content-Type": "application/json; charset=utf-8",
-  });
-  res.end(JSON.stringify(data));
+function getSearchParam(req) {
+  return req.query.search || req.query.q || req.query.query || "";
 }
 
-function readBody(req) {
-  return new Promise((resolve, reject) => {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk;
-    });
-    req.on("end", () => {
-      if (!body) {
-        resolve(null);
-        return;
-      }
-      try {
-        resolve(JSON.parse(body));
-      } catch (err) {
-        reject(err);
-      }
-    });
-    req.on("error", reject);
+app.get(["/api/helicopters", "/api/helicopters/search"], (req, res) => {
+  let items = loadData();
+  const searchQuery = getSearchParam(req);
+  if (searchQuery) {
+    items = searchHelicopters(items, searchQuery);
+  }
+  res.status(200).json(items);
+});
+
+app.get(["/api/helicopters/count", "/api/helicopters/total-passengers"], (req, res) => {
+  let items = loadData();
+  const searchQuery = getSearchParam(req);
+  if (searchQuery) {
+    items = searchHelicopters(items, searchQuery);
+  }
+  res.status(200).json({
+    count: countHelicopters(items),
+    totalPassengers: calculateTotalPassengers(items),
   });
-}
+});
 
-const server = http.createServer(async (req, res) => {
-  if (req.method === "OPTIONS") {
-    res.writeHead(204, {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    });
-    res.end();
-    return;
+app.get("/api/helicopters/:id", (req, res) => {
+  const itemId = Number(req.params.id);
+  const items = loadData();
+  const found = items.find((item) => item.id === itemId);
+  if (found) {
+    res.status(200).json(found);
+  } else {
+    res.status(404).json({ error: "Helicopter not found" });
+  }
+});
+
+app.post("/api/helicopters", (req, res) => {
+  const payload = req.body;
+  if (!payload || Object.keys(payload).length === 0) {
+    return res.status(400).json({ error: "Invalid JSON body" });
   }
 
-  const parsedUrl = new URL(req.url, `http://${req.headers.host || `localhost:${PORT}`}`);
-  const pathname = parsedUrl.pathname.replace(/\/+$/, "");
+  const items = loadData();
+  const maxId = items.reduce((max, item) => Math.max(max, Number(item.id) || 0), 0);
+  payload.id = maxId + 1;
+  items.push(payload);
+  saveData(items);
+  res.status(201).json(payload);
+});
 
-  if (req.method === "GET") {
-    let items = loadData();
-    const searchQuery =
-      parsedUrl.searchParams.get("search") ||
-      parsedUrl.searchParams.get("q") ||
-      parsedUrl.searchParams.get("query") ||
-      "";
-
-    if (pathname === "/api/helicopters" || pathname === "/api/helicopters/search") {
-      if (searchQuery) {
-        items = searchHelicopters(items, searchQuery);
-      }
-      sendJson(res, 200, items);
-      return;
-    }
-
-    if (pathname === "/api/helicopters/count" || pathname === "/api/helicopters/total-passengers") {
-      if (searchQuery) {
-        items = searchHelicopters(items, searchQuery);
-      }
-      sendJson(res, 200, {
-        count: countHelicopters(items),
-        totalPassengers: calculateTotalPassengers(items),
-      });
-      return;
-    }
-
-    const match = pathname.match(/^\/api\/helicopters\/(\d+)$/);
-    if (match) {
-      const itemId = Number(match[1]);
-      const found = items.find((item) => item.id === itemId);
-      if (found) {
-        sendJson(res, 200, found);
-      } else {
-        sendJson(res, 404, { error: "Helicopter not found" });
-      }
-      return;
-    }
-
-    sendJson(res, 404, { error: "Not Found" });
-    return;
+app.put("/api/helicopters/:id", (req, res) => {
+  const itemId = Number(req.params.id);
+  const payload = req.body;
+  if (!payload || Object.keys(payload).length === 0) {
+    return res.status(400).json({ error: "Invalid JSON body" });
   }
 
-  if (req.method === "POST") {
-    if (pathname === "/api/helicopters") {
-      let payload;
-      try {
-        payload = await readBody(req);
-      } catch {
-        sendJson(res, 400, { error: "Invalid JSON body" });
-        return;
-      }
-
-      if (!payload) {
-        sendJson(res, 400, { error: "Invalid JSON body" });
-        return;
-      }
-
-      const items = loadData();
-      const maxId = items.reduce((max, item) => Math.max(max, Number(item.id) || 0), 0);
-      payload.id = maxId + 1;
-      items.push(payload);
-      saveData(items);
-      sendJson(res, 201, payload);
-      return;
-    }
-
-    sendJson(res, 404, { error: "Not Found" });
-    return;
+  const items = loadData();
+  const idx = items.findIndex((item) => item.id === itemId);
+  if (idx !== -1) {
+    payload.id = itemId;
+    items[idx] = payload;
+    saveData(items);
+    return res.status(200).json(payload);
   }
 
-  if (req.method === "PUT") {
-    const match = pathname.match(/^\/api\/helicopters\/(\d+)$/);
-    if (match) {
-      const itemId = Number(match[1]);
-      let payload;
-      try {
-        payload = await readBody(req);
-      } catch {
-        sendJson(res, 400, { error: "Invalid JSON body" });
-        return;
-      }
+  res.status(404).json({ error: "Helicopter not found" });
+});
 
-      if (!payload) {
-        sendJson(res, 400, { error: "Invalid JSON body" });
-        return;
-      }
+app.delete("/api/helicopters/:id", (req, res) => {
+  const itemId = Number(req.params.id);
+  const items = loadData();
+  const newItems = items.filter((item) => item.id !== itemId);
 
-      const items = loadData();
-      const idx = items.findIndex((item) => item.id === itemId);
-      if (idx !== -1) {
-        payload.id = itemId;
-        items[idx] = payload;
-        saveData(items);
-        sendJson(res, 200, payload);
-        return;
-      }
-
-      sendJson(res, 404, { error: "Helicopter not found" });
-      return;
-    }
-
-    sendJson(res, 404, { error: "Not Found" });
-    return;
+  if (newItems.length === items.length) {
+    return res.status(404).json({ error: "Helicopter not found" });
   }
 
-  if (req.method === "DELETE") {
-    const match = pathname.match(/^\/api\/helicopters\/(\d+)$/);
-    if (match) {
-      const itemId = Number(match[1]);
-      const items = loadData();
-      const newItems = items.filter((item) => item.id !== itemId);
-
-      if (newItems.length === items.length) {
-        sendJson(res, 404, { error: "Helicopter not found" });
-        return;
-      }
-
-      saveData(newItems);
-      sendJson(res, 200, { message: `Helicopter ${itemId} deleted successfully` });
-      return;
-    }
-
-    sendJson(res, 404, { error: "Not Found" });
-    return;
-  }
-
-  sendJson(res, 404, { error: "Not Found" });
+  saveData(newItems);
+  res.status(200).json({ message: `Helicopter ${itemId} deleted successfully` });
 });
 
 if (require.main === module) {
-  server.listen(PORT, "0.0.0.0", () => {
+  app.listen(PORT, "0.0.0.0", () => {
     console.log(`REST API server running at http://localhost:${PORT}`);
   });
 }
 
 module.exports = {
-  server,
+  app,
   loadData,
   saveData,
   searchHelicopters,
