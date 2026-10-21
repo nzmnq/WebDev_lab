@@ -16,7 +16,7 @@ The goal of this laboratory work is to integrate the frontend application with a
 - Connect all frontend pages (`main.js`, `create.js`, `edit.js`) to the backend API.
 
 ## Project Structure
-- `server.py` - Lightweight REST API server with CORS support
+- `server.js` - Lightweight Node.js REST API server with CORS support
 - `data.json` - Persistent JSON data storage
 - `js/`
   - `api.js` - Asynchronous HTTP request module (CRUD operations)
@@ -30,7 +30,7 @@ The goal of this laboratory work is to integrate the frontend application with a
 ## How to Run
 1. Start the REST API server:
    ```bash
-   python3 server.py
+   node server.js
    ```
    The server will start at `http://127.0.0.1:3000`.
 
