@@ -1,44 +1,37 @@
 # Laboratory Work 6: React.js - Home Page
 
 ## Overview
-The goal of this laboratory work is to initiate the development of a modern e-commerce React.js web application for browsing and acquiring helicopters (**Variant 8: Helicopter**), continuing from previous laboratory assignments (3–5).
+The goal of this laboratory work is to migrate the helicopter catalog web application (**Variant 8: Helicopter**) developed in Laboratory Work 5 into a modern **React.js** single-page application structure.
 
-The application features a complete, responsive **Home Page** following standard e-commerce wireframes, built entirely using **Functional Components** and modular CSS styling.
+The Home page replicates the exact visual design, layout, and structure of Laboratory Work 5 (header, management sidebar, and helicopter cards grid) using modular React **Functional Components** and dedicated CSS stylesheets.
 
 ## Variant Specification (Variant 8)
 - **Entity:** Helicopter
 - **Attributes:**
   - `id` (number)
   - `name` (string)
-  - `category` (string)
-  - `passengers` (number - capacity)
+  - `passengers` (number - passenger capacity)
   - `maxSpeed` (number - km/h)
-  - `price` (string - USD)
-  - `rating` (number)
   - `description` (string)
-  - `image` (string - visual media asset)
-  - `featured` (boolean)
 
 ## Requirements & Implementation
-- **React.js Mark-up:** All user interface mark-up is rendered dynamically via React JSX. The root `public/index.html` file remains untouched with a standard `<div id="root"></div>` mount container.
-- **Base Project Architecture:** Built on the standard Create React App (CRA) structure with `react-scripts`.
-- **Wireframe Compliance:** The Home page incorporates all essential wireframe sections:
-  - **Header & Navigation:** Branding with animated rotor icon, navigation links, quick search placeholder, shopping cart indicator, and action button.
-  - **Hero Banner:** Compelling headline, value proposition, primary and secondary call-to-action buttons, key operational metrics, and flagship model showcase card.
-  - **Features / Standards:** 4 highlight cards covering airworthiness certification, global delivery, performance capabilities, and 24/7 MRO technical maintenance.
-  - **Helicopter Catalog Preview:** Dynamic helicopter grid rendered via `.map()` using separate card components, complete with category tags, specs, pricing, and action buttons.
-  - **Footer:** Brand mission, multi-column navigation, fleet links, aviation hub contact information, and copyright/legal notices.
-- **Component Architecture:** UI elements are logically divided into separate files (8 functional components):
-  1. `Header` (`src/components/Header/Header.jsx`)
-  2. `Hero` (`src/components/Hero/Hero.jsx`)
-  3. `Features` (`src/components/Features/Features.jsx`)
-  4. `FeatureCard` (`src/components/Features/FeatureCard.jsx`)
-  5. `HelicopterCard` (`src/components/HelicopterCard/HelicopterCard.jsx`)
-  6. `HelicopterList` (`src/components/HelicopterList/HelicopterList.jsx`)
-  7. `Footer` (`src/components/Footer/Footer.jsx`)
-  8. `App` (`src/App.jsx`)
+- **React.js Mark-up:** All HTML markup is rendered exclusively via React JSX. The root `public/index.html` file remains untouched with the standard `<div id="root"></div>` mount node.
+- **Base Project Architecture:** Built using standard Create React App (CRA) structure with `react-scripts`.
+- **Wireframe & Design Compliance:** Replicates the exact layout from Laboratory Work 5:
+  - **Header (`Header`):** Brand name (`MyHeli`), navigation menu (`My Helicopters`, `Create Helicopter`), search input (`search-input`), and `Search`/`Clear` action buttons.
+  - **Sidebar (`Sidebar`):** Management controls including speed sort toggle switch, total passenger capacity calculation button, and total passenger display.
+  - **Cards Grid (`CardsGrid`):** Container for rendering helicopter cards via `Array.prototype.map()`.
+  - **Helicopter Card (`HelicopterCard`):** Displays helicopter placeholder image (`235x180`), title, description, technical specs (max speed, passenger capacity), update status timestamp, and action buttons (`Edit`, `Remove`).
+  - **Footer (`Footer`):** Footer element providing branding, navigation links, and copyright notice.
+- **Component Architecture:** UI elements are logically divided into separate files (5 dedicated component folders + App):
+  1. `Header` (`src/components/Header/Header.jsx`, `Header.css`)
+  2. `Sidebar` (`src/components/Sidebar/Sidebar.jsx`, `Sidebar.css`)
+  3. `CardsGrid` (`src/components/CardsGrid/CardsGrid.jsx`, `CardsGrid.css`)
+  4. `HelicopterCard` (`src/components/HelicopterCard/HelicopterCard.jsx`, `HelicopterCard.css`)
+  5. `Footer` (`src/components/Footer/Footer.jsx`, `Footer.css`)
+  6. `App` (`src/App.jsx`, `App.css`)
 - **Functional Components:** All components are written strictly as React Functional Components with props.
-- **Design & Styling:** Custom modular CSS with modern dark aviation theme, CSS variables, CSS Grid, Flexbox, smooth transitions, and responsive breakpoints.
+- **Styling:** CSS modular styling matching the clean typography, dimensions, and color palette of Laboratory Work 5.
 - **Functionality Scope:** View-only presentation as required for Lab 6.
 
 ## Project Structure
@@ -50,10 +43,9 @@ WebDev_lab/
 │   └── manifest.json
 ├── src/
 │   ├── components/
-│   │   ├── Features/
-│   │   │   ├── FeatureCard.jsx
-│   │   │   ├── Features.css
-│   │   │   └── Features.jsx
+│   │   ├── CardsGrid/
+│   │   │   ├── CardsGrid.css
+│   │   │   └── CardsGrid.jsx
 │   │   ├── Footer/
 │   │   │   ├── Footer.css
 │   │   │   └── Footer.jsx
@@ -63,12 +55,9 @@ WebDev_lab/
 │   │   ├── HelicopterCard/
 │   │   │   ├── HelicopterCard.css
 │   │   │   └── HelicopterCard.jsx
-│   │   ├── HelicopterList/
-│   │   │   ├── HelicopterList.css
-│   │   │   └── HelicopterList.jsx
-│   │   └── Hero/
-│   │       ├── Hero.css
-│   │       └── Hero.jsx
+│   │   └── Sidebar/
+│   │       ├── Sidebar.css
+│   │       └── Sidebar.jsx
 │   ├── data/
 │   │   └── helicopters.js
 │   ├── App.css

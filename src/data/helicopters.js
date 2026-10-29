@@ -1,80 +1,37 @@
-export const HELICOPTERS_DATA = [
+export const INITIAL_HELICOPTERS = [
   {
     id: 1,
-    name: "Sikorsky UH-60 Black Hawk",
-    category: "Military / Tactical",
-    tag: "Tactical Legend",
+    name: "Sikorsky UH-60",
     passengers: 14,
     maxSpeed: 295,
-    price: "$14,200,000",
-    rating: 4.9,
-    description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування, евакуації та виконання спеціальних операцій у будь-яких погодних умовах.",
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
-    featured: true
+    description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації."
   },
   {
     id: 2,
     name: "Boeing CH-47 Chinook",
-    category: "Heavy Lift",
-    tag: "Heavy Duty",
     passengers: 55,
     maxSpeed: 315,
-    price: "$38,500,000",
-    rating: 4.8,
-    description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для перевезення великовагових вантажів, техніки та особового складу.",
-    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80",
-    featured: true
+    description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів."
   },
   {
     id: 3,
     name: "Eurocopter EC135",
-    category: "Emergency & Police",
-    tag: "Best Seller",
     passengers: 7,
     maxSpeed: 287,
-    price: "$4,600,000",
-    rating: 4.9,
-    description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у службах екстреної медичної допомоги (HEMS), поліції та корпоративних перевезеннях.",
-    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=800&q=80",
-    featured: true
+    description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах."
   },
   {
     id: 4,
     name: "Bell 206 JetRanger",
-    category: "Civilian & Utility",
-    tag: "Classic Reliability",
     passengers: 4,
     maxSpeed: 222,
-    price: "$1,150,000",
-    rating: 4.7,
-    description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації. Ідеальний вибір для приватних польотів та аеронагляду.",
-    image: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80",
-    featured: false
+    description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації."
   },
   {
     id: 5,
     name: "AgustaWestland AW101",
-    category: "Search & Rescue",
-    tag: "Triple Engine Power",
     passengers: 30,
     maxSpeed: 309,
-    price: "$21,000,000",
-    rating: 4.9,
-    description: "Середній багатоцільовий трьохдвигуновий вертоліт для складних морських місій, пошуково-рятувальних операцій та безпечних VIP-перельотів.",
-    image: "https://images.unsplash.com/photo-1519074069444-1ba4ea16e6f1?auto=format&fit=crop&w=800&q=80",
-    featured: true
-  },
-  {
-    id: 6,
-    name: "Airbus Helicopters H145",
-    category: "Corporate & Utility",
-    tag: "Modern Avionics",
-    passengers: 10,
-    maxSpeed: 268,
-    price: "$9,800,000",
-    rating: 4.8,
-    description: "Високотехнологічний дводвигуновий вертоліт останнього покоління з передовим комплексом авіоніки Helionix для складних гірських та міських польотів.",
-    image: "https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=800&q=80",
-    featured: false
+    description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій."
   }
 ];

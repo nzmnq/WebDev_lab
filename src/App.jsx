@@ -1,31 +1,27 @@
 import React from 'react';
 import Header from './components/Header/Header';
-import Hero from './components/Hero/Hero';
-import Features from './components/Features/Features';
-import HelicopterList from './components/HelicopterList/HelicopterList';
+import Sidebar from './components/Sidebar/Sidebar';
+import CardsGrid from './components/CardsGrid/CardsGrid';
 import Footer from './components/Footer/Footer';
-import { HELICOPTERS_DATA } from './data/helicopters';
+import { INITIAL_HELICOPTERS } from './data/helicopters';
 import './App.css';
 
 function App() {
   return (
     <div className="app">
-      {/* 1. Header with navigation & branding */}
+      {/* 1. Header component (Brand, Nav, Search & Clear) */}
       <Header />
 
-      {/* Main Home Page Content */}
-      <main className="app__main">
-        {/* 2. Hero Section with banner, CTA, and stats */}
-        <Hero />
+      {/* Main layout container matching Lab 5 */}
+      <main className="main-container">
+        {/* 2. Sidebar component (Sort toggle, Capacity count) */}
+        <Sidebar totalPassengers="—" isSorted={false} />
 
-        {/* 3. Features & Company Standards Section */}
-        <Features />
-
-        {/* 4. Helicopter Catalog Preview Section */}
-        <HelicopterList helicopters={HELICOPTERS_DATA} />
+        {/* 3. CardsGrid component (renders HelicopterCard items) */}
+        <CardsGrid helicopters={INITIAL_HELICOPTERS} />
       </main>
 
-      {/* 5. Footer with links, contacts, and copyright */}
+      {/* 4. Footer component */}
       <Footer />
     </div>
   );
