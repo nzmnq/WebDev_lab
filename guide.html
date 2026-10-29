@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Посібник до захисту Лабораторної роботи №6 (React.js)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    @page {
+      size: A4;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      line-height: 1.5;
+      font-size: 10.5pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .header-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      border-left: 6px solid #0284c7;
+    }
+
+    .header-hero h1 {
+      font-size: 20pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: #f8fafc;
+    }
+
+    .header-hero .subtitle {
+      font-size: 11.5pt;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .header-hero .meta {
+      font-size: 9pt;
+      color: #94a3b8;
+      display: flex;
+      gap: 16px;
+    }
+
+    h2 {
+      font-size: 14pt;
+      color: #0f172a;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 22px;
+      margin-bottom: 12px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 11.5pt;
+      color: #0369a1;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 8px;
+    }
+
+    .callout {
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-left: 4px solid #0284c7;
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-size: 10pt;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      color: #0369a1;
+      margin-bottom: 4px;
+    }
+
+    .highlight-box {
+      background-color: #fefce8;
+      border: 1px solid #fef08a;
+      border-left: 4px solid #eab308;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-size: 9.8pt;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 9.5pt;
+    }
+
+    .compare-table th, .compare-table td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .compare-table th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .compare-table tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.8pt;
+      background-color: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.4pt;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 8px 0 12px 0;
+      line-height: 1.4;
+      page-break-inside: avoid;
+    }
+
+    .qa-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .qa-card .q {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 10.5pt;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .qa-card .q-badge {
+      background-color: #0284c7;
+      color: #ffffff;
+      font-size: 7.5pt;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .qa-card .a {
+      font-size: 9.8pt;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 8px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .file-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.2pt;
+      font-weight: 600;
+      background-color: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+      border: 1px solid #bae6fd;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+      page-break-inside: avoid;
+    }
+
+    .summary-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background-color: #f8fafc;
+    }
+
+    .summary-card h4 {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #0284c7;
+      margin-bottom: 4px;
+    }
+
+    .summary-card p {
+      font-size: 8.8pt;
+      color: #475569;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO HEADER -->
+  <div class="header-hero">
+    <div class="subtitle">ШПАРГАЛКА ДО ЗАХИСТУ ЗА 2 ГОДИНИ</div>
+    <h1>Лабораторна робота №6: React.js (Home Page)</h1>
+    <div class="meta">
+      <span><strong>Предмет:</strong> Web-розробка</span>
+      <span><strong>Варіант:</strong> 8 (Helicopter / Вертольоти)</span>
+      <span><strong>Стек:</strong> React 18, JSX, Functional Components, CSS Modules</span>
+    </div>
+  </div>
+
+  <!-- РОЗДІЛ 1: ГОЛОВНА СУТЬ -->
+  <h2>1. Головна суть: Чому React і що змінилося після 5-ї лаби?</h2>
+  <div class="callout">
+    <div class="callout-title">Головна думка, яку треба сказати викладачу:</div>
+    <em>«У 5-й лабораторній ми писали окремо HTML-розмітку у файлі <code>data/index.html</code>, а в JavaScript вручну шукали елементи через <code>document.getElementById</code> і склеювали рядки через <code>innerHTML</code> (<strong>імперативний підхід</strong>). У React ми перейшли на <strong>декларативний підхід</strong> та синтаксис <strong>JSX</strong>: тепер розмітка та логіка компонента описані разом в одному файлі JavaScript, а оновленням DOM займається сам React через механізм Virtual DOM».</em>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Критерій</th>
+        <th style="width: 37%;">Як було в Лабі 3–5 (Vanilla JS)</th>
+        <th style="width: 38%;">Як стало в Лабі 6 (React.js)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Файли верстки</strong></td>
+        <td>Окремий великий <code>data/index.html</code> зі структурою тегів.</td>
+        <td><code>public/index.html</code> містить лише <code>&lt;div id="root"&gt;&lt;/div&gt;</code>. Увесь HTML генерується в React.</td>
+      </tr>
+      <tr>
+        <td><strong>Формування карток</strong></td>
+        <td>Склеювання шаблонних рядків <code>items.map(h => `&lt;div&gt;...&lt;/div&gt;`).join('')</code> та <code>innerHTML = ...</code>.</td>
+        <td>Функціональний компонент <code>&lt;HelicopterCard helicopter={heli} /&gt;</code>, який повертає <strong>JSX</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>Поділ коду</strong></td>
+        <td>Глобальні скрипти (<code>dom.js</code>, <code>main.js</code>, <code>api.js</code>), які взаємодіють з глобальним DOM.</td>
+        <td>Компонентна архітектура: кожен візуальний блок (Header, Sidebar, Card) — це окремий незалежний компонент у власному файлі.</td>
+      </tr>
+      <tr>
+        <td><strong>Стилізація</strong></td>
+        <td>Окремі CSS файли, що підключалися через тег <code>&lt;link&gt;</code> в HTML.</td>
+        <td>Модульний імпорт CSS безпосередньо у відповідний JS-файл компонента (<code>import './Header.css'</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- РОЗДІЛ 2: СТРУКТУРА ПРОЄКТУ -->
+  <h2>2. Архітектура файлів нашого проєкту</h2>
+  <p>За вимогою завдання інтерфейс розділено щонайменше на 5 окремих функціональних компонентів (кожен у своєму файлі):</p>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>1. Header (Шапка)</h4>
+      <p><code>src/components/Header/Header.jsx</code><br>Бренд <strong>MyHeli</strong>, навігація (My Helicopters, Create), поле пошуку та кнопки Search/Clear.</p>
+    </div>
+    <div class="summary-card">
+      <h4>2. Sidebar (Бокова панель)</h4>
+      <p><code>src/components/Sidebar/Sidebar.jsx</code><br>Керування вертольотами: перемикач сортування (Sort toggle) та кнопка підрахунку пасажирів (Count).</p>
+    </div>
+    <div class="summary-card">
+      <h4>3. CardsGrid (Сітка карток)</h4>
+      <p><code>src/components/CardsGrid/CardsGrid.jsx</code><br>Контейнер секції контенту. Проходиться методом <code>.map()</code> по масиву даних вертольотів.</p>
+    </div>
+    <div class="summary-card">
+      <h4>4. HelicopterCard (Картка вертольота)</h4>
+      <p><code>src/components/HelicopterCard/HelicopterCard.jsx</code><br>Індивідуальна картка (235x180 прев'ю, назва, опис, характеристики, кнопки Edit/Remove).</p>
+    </div>
+    <div class="summary-card">
+      <h4>5. Footer (Підвал сайту)</h4>
+      <p><code>src/components/Footer/Footer.jsx</code><br>Інформація про систему MyHeli, дублюючі лінки та копірайт.</p>
+    </div>
+    <div class="summary-card">
+      <h4>6. App (Головний контейнер)</h4>
+      <p><code>src/App.jsx</code><br>Кореневий компонент, який імпортує дані вертольотів та збирає всі компоненти на одній сторінці.</p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- РОЗДІЛ 3: ПОКРОКОВИЙ РОЗБІР КОДУ -->
+  <h2>3. Покроковий розбір коду (Що відбувається в кожному файлі)</h2>
+
+  <h3>3.1. Точка монтування: <code>public/index.html</code> та <code>src/index.js</code></h3>
+  <p>У <code>public/index.html</code> немає жодного нашого тегу, крім:</p>
+  <pre>&lt;div id="root"&gt;&lt;/div&gt;</pre>
+  <p>У <code>src/index.js</code> React підключається до цього контейнера:</p>
+  <pre>import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+
+// Створюємо корінь React 18 через новий метод createRoot
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  &lt;React.StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/React.StrictMode&gt;
+);</pre>
+  <div class="highlight-box">
+    <strong>Що сказати:</strong> <code>ReactDOM.createRoot</code> знаходить звичайний DOM-вузол з <code>id="root"</code> і бере над ним повний контроль. Метод <code>render(&lt;App /&gt;)</code> перетворює дерево компонентів React на реальні DOM-вузли всередині цього блоку.
+  </div>
+
+  <h3>3.2. Головний компонент <code>src/App.jsx</code> та джерело даних</h3>
+  <p>Дані про вертольоти зберігаються у <code>src/data/helicopters.js</code> (масив з 5 об'єктів з полями <code>id, name, passengers, maxSpeed, description</code>). Компонент <code>App</code> збирає всю сторінку:</p>
+  <pre>import React from 'react';
+import Header from './components/Header/Header';
+import Sidebar from './components/Sidebar/Sidebar';
+import CardsGrid from './components/CardsGrid/CardsGrid';
+import Footer from './components/Footer/Footer';
+import { INITIAL_HELICOPTERS } from './data/helicopters';
+import './App.css';
+
+function App() {
+  return (
+    &lt;div className="app"&gt;
+      &lt;Header /&gt;
+      &lt;main className="main-container"&gt;
+        &lt;Sidebar totalPassengers="—" isSorted={false} /&gt;
+        {/* Передаємо масив вертольотів дочірньому компоненту через props */}
+        &lt;CardsGrid helicopters={INITIAL_HELICOPTERS} /&gt;
+      &lt;/main&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</pre>
+
+  <h3>3.3. Рендеринг списку: <code>src/components/CardsGrid/CardsGrid.jsx</code></h3>
+  <pre>import React from 'react';
+import HelicopterCard from '../HelicopterCard/HelicopterCard';
+import './CardsGrid.css';
+
+const CardsGrid = ({ helicopters = [] }) => {
+  return (
+    &lt;section className="content"&gt;
+      &lt;div className="cards-grid" id="cards-grid"&gt;
+        {helicopters.length === 0 ? (
+          &lt;div className="cards-empty"&gt;Вертольотів не знайдено.&lt;/div&gt;
+        ) : (
+          /* Метод .map() перетворює кожен JS-об'єкт вертольота на JSX-компонент */
+          helicopters.map((heli) => (
+            &lt;HelicopterCard key={heli.id} helicopter={heli} /&gt;
+          ))
+        )}
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+};
+
+export default CardsGrid;</pre>
+
+  <h3>3.4. Відображення одного вертольота: <code>src/components/HelicopterCard/HelicopterCard.jsx</code></h3>
+  <pre>import React from 'react';
+import './HelicopterCard.css';
+
+const HelicopterCard = ({ helicopter }) => {
+  // Деструктуризація об'єкта пропса для зручного звернення
+  const { id, name, description, maxSpeed, passengers } = helicopter;
+
+  return (
+    &lt;article className="card" data-id={id}&gt;
+      &lt;div className="card__image"&gt;
+        &lt;span className="card__image-text"&gt;235x180&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div className="card__body"&gt;
+        &lt;h3 className="card__title"&gt;{name}&lt;/h3&gt;
+        &lt;p className="card__desc"&gt;{description}&lt;/p&gt;
+        &lt;p className="card__specs"&gt;
+          &lt;strong&gt;Макс. швидкість:&lt;/strong&gt; {maxSpeed} км/год&lt;br /&gt;
+          &lt;strong&gt;Пасажири:&lt;/strong&gt; {passengers} місць
+        &lt;/p&gt;
+        &lt;div className="card__updated"&gt;Last updated 3 mins ago&lt;/div&gt;
+        &lt;div className="card__actions"&gt;
+          &lt;button type="button" className="btn-card-edit"&gt;Edit&lt;/button&gt;
+          &lt;button type="button" className="btn-card-remove"&gt;Remove&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  );
+};
+
+export default HelicopterCard;</pre>
+
+  <div class="page-break"></div>
+
+  <!-- РОЗДІЛ 4: ТОП ЗАПИТАНЬ ТА ВІДПОВІДЕЙ НА ЗАХИСТІ -->
+  <h2>4. ТОП-10 питань викладача на захисті та готові відповіді</h2>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 1</span>
+      Що таке JSX і чому браузер не може виконати його напряму?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> <strong>JSX</strong> (JavaScript XML) — це розширення синтаксису JavaScript, яке дозволяє писати HTML-подібну розмітку безпосередньо у коді JS. Браузер не розуміє JSX напряму, тому транспілятор <strong>Babel</strong> (у складі <code>react-scripts</code>) перед виконанням перетворює JSX на стандартні виклики функцій <code>React.createElement(...)</code> або новий JSX runtime <code>_jsx(...)</code>.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 2</span>
+      Чому замість class ми пишемо className, а замість for — htmlFor?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Оскільки JSX — це розширення мови JavaScript, слова <code>class</code> та <code>for</code> є зарезервованими ключовими словами у JS (для оголошення класів та циклів). Щоб уникнути синтаксичного конфлікту, у React для HTML-атрибутів використовуються відповідні DOM-властивості: <code>className</code> та <code>htmlFor</code>.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 3</span>
+      Що таке Функціональні Компоненти (Functional Components)? Чим вони кращі за класові?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Функціональний компонент — це звичайна JS-функція, яка приймає вхідні дані (<code>props</code>) і повертає JSX. Вони є сучасним стандартом React (починаючи з версії 16.8), оскільки мають значно простіший та лаконічніший синтаксис, не потребують ключового слова <code>this</code>, займають менше пам'яті та легко використовують React Hooks (<code>useState</code>, <code>useEffect</code>).
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 4</span>
+      Що таке Props (пропси) і яке правило їх зміни в React?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> <strong>Props</strong> (properties) — це вхідні параметри, які передаються від батьківського компонента до дочірнього (наприклад, <code>&lt;CardsGrid helicopters={INITIAL_HELICOPTERS} /&gt;</code>).<br>
+      <strong>Важливе правило:</strong> Props є <strong>read-only (незмінними)</strong>! Дочірній компонент ніколи не повинен мутувати (змінювати) свої пропси напряму, оскільки React підтримує строгий односторонній потік даних (One-Way Data Flow).
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 5</span>
+      Навіщо обов'язково вказувати key={heli.id} у циклі map()?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Ключ <code>key</code> — це унікальний ідентифікатор елемента списку, який потрібен алгоритму узгодження React (<strong>Reconciliation / Virtual DOM diffing</strong>). Завдяки <code>key</code> React точно знає, яка саме картка була додана, змінена чи видалена, і оновлює в реальному браузері лише цей конкретний вузол, а не перемальовує весь список заново.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 6</span>
+      Що таке Virtual DOM (Віртуальний DOM) і як він працює?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> <strong>Virtual DOM</strong> — це легка копія реального дерева DOM у пам'яті (у вигляді простих JS-об'єктів). Коли змінюються дані:
+      <ol style="margin-top: 4px; margin-left: 18px;">
+        <li>React будує нове дерево Virtual DOM.</li>
+        <li>Порівнює його зі старим деревом (процес <strong>Diffing</strong>).</li>
+        <li>Знаходить мінімальну необхідну різницю та точково вносить зміни в реальний браузерний DOM (процес <strong>Reconciliation</strong>). Це на порядки швидше за пряме перезаписування <code>innerHTML</code>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 7</span>
+      Чому в index.html нічого немає, а сайт відображається?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Тому що це архітектура <strong>Single Page Application (SPA)</strong>. Браузер завантажує порожній скелет сторінки з єдиним тегом <code>&lt;div id="root"&gt;</code> і скрипт збірки React. Скрипт виконується на клієнті і за допомогою <code>ReactDOM.createRoot().render(&lt;App /&gt;)</code> повністю формує весь HTML і вставляє його в <code>root</code>.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 8</span>
+      Як передаються стилі компонентів у нашому додатку?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Кожен компонент має свій окремий CSS-файл (наприклад, <code>Header.css</code>, <code>Sidebar.css</code>, <code>CardsGrid.css</code>), який імпортується безпосередньо у відповідний файл компонента через команду <code>import './Header.css'</code>. Під час збірки Webpack збирає ці стилі в єдиний оптимізований бандл.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 9</span>
+      Які дані представляє наша сутність (Варіант 8)?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Сутність — <strong>Helicopter (Вертоліт)</strong>. Поля об'єкта відповідають попереднім роботам:
+      <code>id</code> (число), <code>name</code> (назва вертольота, рядок), <code>passengers</code> (кількість пасажирських місць, число), <code>maxSpeed</code> (максимальна швидкість у км/год, число), <code>description</code> (опис призначення).
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Питання 10</span>
+      Чому кнопки Edit, Remove та Search зараз не виконують дії?
+    </div>
+    <div class="a">
+      <strong>Відповідь:</strong> Згідно з технічним завданням 6-ї лабораторної роботи, вимагається реалізувати <strong>виключно представлення сторінки (View-only part)</strong>: перенести розмітку в компоненти React і налаштувати стилі. Вся інтерактивність (useState, фільтрація, роутинг, редагування через форми та робота з API) запланована на наступні лабораторні роботи (7–8).
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- РОЗДІЛ 5: ЕКСПРЕС ШПАРГАЛКА ЗА 2 ХВИЛИНИ -->
+  <h2>5. Експрес-пам'ятка за 2 хвилини до захисту</h2>
+  
+  <div style="background-color: #f8fafc; border: 2px dashed #0284c7; padding: 14px 18px; border-radius: 8px;">
+    <h3 style="color: #0f172a; margin-top: 0;">Якщо викладач запитає «Розкажи коротко свій код»:</h3>
+    <p><strong>Говори за цією схемою (30 секунд):</strong></p>
+    <ol style="line-height: 1.6; font-size: 10pt;">
+      <li>«У цій лабораторній роботі ми перенесли наш сайт каталогу вертольотів з ванільного JS на <strong>React 18</strong>».</li>
+      <li>«Ми повністю зберегли верстку та дизайн із 5-ї лаби (шапка <code>MyHeli</code>, бокове меню сортування та сітка карток), але тепер весь UI розбитий на <strong>5 окремих функціональних компонентів</strong>: <code>Header</code>, <code>Sidebar</code>, <code>CardsGrid</code>, <code>HelicopterCard</code> та <code>Footer</code>».</li>
+      <li>«У <code>index.html</code> розмітка чиста (тільки <code>div id="root"</code>). Точка входу <code>index.js</code> монтує кореневий компонент <code>App</code> за допомогою <code>createRoot</code>».</li>
+      <li>«Дані вертольотів зберігаються у масиві <code>INITIAL_HELICOPTERS</code> і передаються через <code>props</code> у <code>CardsGrid</code>, де за допомогою методу <code>.map()</code> рендеряться окремі картки <code>HelicopterCard</code> з унікальним <code>key={heli.id}</code>».</li>
+      <li>«Усі компоненти функціональні, без класового <code>this</code>. Згідно з вимогами лаби 6, реалізовано представлення (view-only), а стан та взаємодію буде додано в наступних роботах».</li>
+    </ol>
+  </div>
+
+  <div style="margin-top: 24px; text-align: center; font-size: 9pt; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 12px;">
+    Підготовлено спеціально для захисту лабораторної роботи №6 з дисципліни «Web-розробка».
+  </div>
+
+</body>
+</html>
