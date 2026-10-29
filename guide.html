@@ -438,112 +438,174 @@ export default HelicopterCard;</pre>
   <div class="page-break"></div>
 
   <!-- РОЗДІЛ 4: ТОП ЗАПИТАНЬ ТА ВІДПОВІДЕЙ НА ЗАХИСТІ -->
-  <h2>4. ТОП-10 питань викладача на захисті та готові відповіді</h2>
+  <h2>4. ТОП-11 канонічних питань захисту (Questionnaire)</h2>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 1</span>
-      Що таке JSX і чому браузер не може виконати його напряму?
+      <span class="q-badge">Question 1</span>
+      What is React? (Що таке React?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> <strong>JSX</strong> (JavaScript XML) — це розширення синтаксису JavaScript, яке дозволяє писати HTML-подібну розмітку безпосередньо у коді JS. Браузер не розуміє JSX напряму, тому транспілятор <strong>Babel</strong> (у складі <code>react-scripts</code>) перед виконанням перетворює JSX на стандартні виклики функцій <code>React.createElement(...)</code> або новий JSX runtime <code>_jsx(...)</code>.
+      <strong>Answer:</strong> <strong>React</strong> is an open-source JavaScript front-end library developed by Meta (Facebook) for building user interfaces, especially Single Page Applications (SPAs). It is based on a <strong>component-based architecture</strong>, uses a <strong>Virtual DOM</strong> for high-performance rendering, and enforces a <strong>declarative approach</strong> where the UI is expressed as a pure function of state and props (<code>UI = f(state, props)</code>).
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 2</span>
-      Чому замість class ми пишемо className, а замість for — htmlFor?
+      <span class="q-badge">Question 2</span>
+      What is Single Page Application (SPA)? (Що таке SPA?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Оскільки JSX — це розширення мови JavaScript, слова <code>class</code> та <code>for</code> є зарезервованими ключовими словами у JS (для оголошення класів та циклів). Щоб уникнути синтаксичного конфлікту, у React для HTML-атрибутів використовуються відповідні DOM-властивості: <code>className</code> та <code>htmlFor</code>.
+      <strong>Answer:</strong> An <strong>SPA</strong> is a web application that loads only a single initial HTML file (<code>public/index.html</code> with <code>&lt;div id="root"&gt;&lt;/div&gt;</code>). As the user navigates, JavaScript dynamically rewrites the existing page with new content rather than downloading entire new HTML pages from the server. This provides a fluid, desktop-like user experience with zero full-page browser reloads.
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 3</span>
-      Що таке Функціональні Компоненти (Functional Components)? Чим вони кращі за класові?
+      <span class="q-badge">Question 3</span>
+      What are the major features of React? (Основні особливості React)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Функціональний компонент — це звичайна JS-функція, яка приймає вхідні дані (<code>props</code>) і повертає JSX. Вони є сучасним стандартом React (починаючи з версії 16.8), оскільки мають значно простіший та лаконічніший синтаксис, не потребують ключового слова <code>this</code>, займають менше пам'яті та легко використовують React Hooks (<code>useState</code>, <code>useEffect</code>).
+      <strong>Answer:</strong>
+      <ul style="margin-top: 4px; margin-left: 18px;">
+        <li><strong>JSX:</strong> Syntax extension allowing HTML-like markup inside JavaScript.</li>
+        <li><strong>Virtual DOM:</strong> Lightweight in-memory DOM representation with efficient diffing algorithm.</li>
+        <li><strong>Component-Based Architecture:</strong> Autonomous, modular, and reusable UI building blocks.</li>
+        <li><strong>One-Way Data Flow:</strong> Unidirectional data flow from parent to child via <code>props</code>, ensuring predictable state.</li>
+        <li><strong>Declarative UI:</strong> You define *what* the UI should look like; React handles *how* to update the DOM.</li>
+        <li><strong>React Hooks:</strong> Functional primitives like <code>useState</code> and <code>useEffect</code> for managing state and lifecycles.</li>
+      </ul>
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 4</span>
-      Що таке Props (пропси) і яке правило їх зміни в React?
+      <span class="q-badge">Question 4</span>
+      What is JSX? (Що таке JSX?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> <strong>Props</strong> (properties) — це вхідні параметри, які передаються від батьківського компонента до дочірнього (наприклад, <code>&lt;CardsGrid helicopters={INITIAL_HELICOPTERS} /&gt;</code>).<br>
-      <strong>Важливе правило:</strong> Props є <strong>read-only (незмінними)</strong>! Дочірній компонент ніколи не повинен мутувати (змінювати) свої пропси напряму, оскільки React підтримує строгий односторонній потік даних (One-Way Data Flow).
+      <strong>Answer:</strong> <strong>JSX</strong> stands for <em>JavaScript XML</em>. It is a syntax extension for JavaScript that allows you to write HTML-like structure directly inside JS files. Browsers cannot read JSX directly; a compiler like <strong>Babel</strong> transpile it into standard <code>React.createElement()</code> (or <code>_jsx()</code>) function calls that produce JavaScript objects. In JSX, JS expressions are embedded inside curly braces <code>{ }</code>, and HTML attributes use DOM properties like <code>className</code> and <code>htmlFor</code>.
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 5</span>
-      Навіщо обов'язково вказувати key={heli.id} у циклі map()?
+      <span class="q-badge">Question 5</span>
+      What is the difference between Element and Component? (Різниця між Element і Component)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Ключ <code>key</code> — це унікальний ідентифікатор елемента списку, який потрібен алгоритму узгодження React (<strong>Reconciliation / Virtual DOM diffing</strong>). Завдяки <code>key</code> React точно знає, яка саме картка була додана, змінена чи видалена, і оновлює в реальному браузері лише цей конкретний вузол, а не перемальовує весь список заново.
+      <strong>Answer:</strong>
+      <ul style="margin-top: 4px; margin-left: 18px;">
+        <li><strong>React Element:</strong> A plain, immutable JavaScript object that describes what you want to see on screen (e.g. <code>const el = &lt;h1&gt;Hello&lt;/h1&gt;;</code>). It is an ephemeral snapshot of a DOM node.</li>
+        <li><strong>React Component:</strong> A reusable function (or class) that accepts inputs (<code>props</code>) and returns a React element tree (e.g. <code>function HelicopterCard(props) { return &lt;article&gt;...&lt;/article&gt;; }</code>). Components are factories/blueprints for producing elements.</li>
+      </ul>
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 6</span>
-      Що таке Virtual DOM (Віртуальний DOM) і як він працює?
+      <span class="q-badge">Question 6</span>
+      How to create components in React? (Як створювати компоненти в React?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> <strong>Virtual DOM</strong> — це легка копія реального дерева DOM у пам'яті (у вигляді простих JS-об'єктів). Коли змінюються дані:
+      <strong>Answer:</strong> There are two ways:
       <ol style="margin-top: 4px; margin-left: 18px;">
-        <li>React будує нове дерево Virtual DOM.</li>
-        <li>Порівнює його зі старим деревом (процес <strong>Diffing</strong>).</li>
-        <li>Знаходить мінімальну необхідну різницю та точково вносить зміни в реальний браузерний DOM (процес <strong>Reconciliation</strong>). Це на порядки швидше за пряме перезаписування <code>innerHTML</code>.</li>
+        <li><strong>Functional Components (Modern standard):</strong> Regular JS functions that take <code>props</code> as an argument and return JSX:
+          <pre style="margin: 4px 0 6px 0;">function HelicopterCard({ helicopter }) {
+  return &lt;h3&gt;{helicopter.name}&lt;/h3&gt;;
+}</pre>
+        </li>
+        <li><strong>Class Components (Legacy):</strong> ES6 classes extending <code>React.Component</code> with a <code>render()</code> method:
+          <pre style="margin: 4px 0 0 0;">class HelicopterCard extends React.Component {
+  render() { return &lt;h3&gt;{this.props.helicopter.name}&lt;/h3&gt;; }
+}</pre>
+        </li>
       </ol>
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 7</span>
-      Чому в index.html нічого немає, а сайт відображається?
+      <span class="q-badge">Question 7</span>
+      What is state in React? (Що таке state?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Тому що це архітектура <strong>Single Page Application (SPA)</strong>. Браузер завантажує порожній скелет сторінки з єдиним тегом <code>&lt;div id="root"&gt;</code> і скрипт збірки React. Скрипт виконується на клієнті і за допомогою <code>ReactDOM.createRoot().render(&lt;App /&gt;)</code> повністю формує весь HTML і вставляє його в <code>root</code>.
+      <strong>Answer:</strong> <strong>State</strong> is an internal, private data store managed entirely within a component. Unlike static variables, when a component's state changes (via <code>useState</code> updater), React automatically detects the change and triggers a <strong>re-render</strong> of the component to update the UI with new information.
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 8</span>
-      Як передаються стилі компонентів у нашому додатку?
+      <span class="q-badge">Question 8</span>
+      What are props in React? (Що таке props?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Кожен компонент має свій окремий CSS-файл (наприклад, <code>Header.css</code>, <code>Sidebar.css</code>, <code>CardsGrid.css</code>), який імпортується безпосередньо у відповідний файл компонента через команду <code>import './Header.css'</code>. Під час збірки Webpack збирає ці стилі в єдиний оптимізований бандл.
+      <strong>Answer:</strong> <strong>Props</strong> (short for "properties") are read-only configuration inputs passed from a parent component down to a child component (e.g., <code>&lt;CardsGrid helicopters={INITIAL_HELICOPTERS} /&gt;</code>). Props are <strong>immutable</strong>: a child component must never modify its received props.
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 9</span>
-      Які дані представляє наша сутність (Варіант 8)?
+      <span class="q-badge">Question 9</span>
+      What is the difference between state and props? (Різниця між state та props)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Сутність — <strong>Helicopter (Вертоліт)</strong>. Поля об'єкта відповідають попереднім роботам:
-      <code>id</code> (число), <code>name</code> (назва вертольота, рядок), <code>passengers</code> (кількість пасажирських місць, число), <code>maxSpeed</code> (максимальна швидкість у км/год, число), <code>description</code> (опис призначення).
+      <strong>Answer:</strong>
+      <table class="compare-table" style="margin: 6px 0 0 0;">
+        <tr>
+          <th>Критерій</th>
+          <th>Props (Властивості)</th>
+          <th>State (Стан)</th>
+        </tr>
+        <tr>
+          <td><strong>Походження</strong></td>
+          <td>Передаються ззовні (від батьківського компонента).</td>
+          <td>Створюється та керується всередині самого компонента.</td>
+        </tr>
+        <tr>
+          <td><strong>Змінюваність</strong></td>
+          <td><strong>Read-only (незмінні)</strong> для компонента-отримувача.</td>
+          <td><strong>Змінюваний</strong> через спеціальну функцію (наприклад, <code>setState</code>).</td>
+        </tr>
+        <tr>
+          <td><strong>Призначення</strong></td>
+          <td>Конфігурація дочірнього компонента, передача даних зверху вниз.</td>
+          <td>Зберігання динамічних внутрішніх даних, які змінюються з часом.</td>
+        </tr>
+      </table>
     </div>
   </div>
 
   <div class="qa-card">
     <div class="q">
-      <span class="q-badge">Питання 10</span>
-      Чому кнопки Edit, Remove та Search зараз не виконують дії?
+      <span class="q-badge">Question 10</span>
+      Why should we not update the state directly? (Чому не можна змінювати state напряму?)
     </div>
     <div class="a">
-      <strong>Відповідь:</strong> Згідно з технічним завданням 6-ї лабораторної роботи, вимагається реалізувати <strong>виключно представлення сторінки (View-only part)</strong>: перенести розмітку в компоненти React і налаштувати стилі. Вся інтерактивність (useState, фільтрація, роутинг, редагування через форми та робота з API) запланована на наступні лабораторні роботи (7–8).
+      <strong>Answer:</strong> If you mutate state directly (e.g., <code>state.count = 5</code>), React has <strong>no way of detecting the mutation</strong>. As a result:
+      <ul style="margin-top: 4px; margin-left: 18px;">
+        <li>No re-render will be triggered, leaving the UI out of sync with the data.</li>
+        <li>It breaks React's batching and reconciliation optimizations.</li>
+        <li>It causes unpredictable side effects and race conditions.</li>
+      </ul>
+      State must always be modified via its setter function (e.g. <code>setCount(5)</code>), which schedules a proper re-render.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="q">
+      <span class="q-badge">Question 11</span>
+      What happens when you update the state? (Що відбувається при оновленні state?)
+    </div>
+    <div class="a">
+      <strong>Answer:</strong> When state is updated via a setter function:
+      <ol style="margin-top: 4px; margin-left: 18px;">
+        <li><strong>Schedule update:</strong> React enqueues the state update and schedules a re-render.</li>
+        <li><strong>Re-render:</strong> React invokes the component function again with the updated state values.</li>
+        <li><strong>New Virtual DOM:</strong> A new Virtual DOM tree representing the new UI is generated.</li>
+        <li><strong>Diffing:</strong> React compares the new Virtual DOM tree with the previous snapshot.</li>
+        <li><strong>Reconciliation (Commit):</strong> React calculates the minimal set of real DOM operations and patches only the changed real DOM nodes in the browser window, leaving the rest untouched.</li>
+      </ol>
     </div>
   </div>
 
