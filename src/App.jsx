@@ -1,24 +1,28 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar';
-import CardsGrid from './components/CardsGrid/CardsGrid';
 import Footer from './components/Footer/Footer';
-import { INITIAL_HELICOPTERS } from './data/helicopters';
+import Home from './pages/Home/Home';
+import Catalog from './pages/Catalog/Catalog';
 import './App.css';
 
 function App() {
   return (
-    <div className="app">
-      <Header />
+    <BrowserRouter>
+      <div className="app">
+        <Header />
 
-      <main className="main-container">
-        <Sidebar totalPassengers="—" isSorted={false} />
+        <main className="app__content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
 
-        <CardsGrid helicopters={INITIAL_HELICOPTERS} />
-      </main>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,0 +1,30 @@
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #6c757d;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.secondary-btn:hover:not(:disabled) {
+  color: #343a40;
+  background-color: #f8f9fa;
+  border-color: #b5b5b5;
+}
+
+.secondary-btn:disabled {
+  color: #adb5bd;
+  border-color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 0.6;
+}

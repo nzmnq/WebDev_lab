@@ -1,4 +1,5 @@
 import React from 'react';
+import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
 import './Sidebar.css';
 
 const Sidebar = ({ totalPassengers = '—', isSorted = false }) => {
@@ -21,9 +22,9 @@ const Sidebar = ({ totalPassengers = '—', isSorted = false }) => {
 
       <div className="sidebar__count">
         <div className="sidebar__count-title">Count total passenger capacity:</div>
-        <button type="button" id="count-btn" className="btn-count">
+        <PrimaryButton id="count-btn" className="btn-count">
           Count
-        </button>
+        </PrimaryButton>
       </div>
 
       <div className="sidebar__total">

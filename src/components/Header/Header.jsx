@@ -1,18 +1,41 @@
 import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
+import SecondaryButton from '../ui/SecondaryButton/SecondaryButton';
 import './Header.css';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="header__left">
-        <div className="header__brand">MyHeli</div>
+        <Link to="/" className="header__brand">
+          MyHeli
+        </Link>
         <nav className="header__nav">
-          <a href="#my-helicopters" className="header__nav-item active">
-            My Helicopters
-          </a>
-          <a href="#create" className="header__nav-item">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `header__nav-item ${isActive ? 'active' : ''}`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) =>
+              `header__nav-item ${isActive ? 'active' : ''}`
+            }
+          >
+            Catalog
+          </NavLink>
+          <button
+            type="button"
+            className="header__nav-item header__btn-create"
+            onClick={(e) => e.preventDefault()}
+          >
             Create Helicopter
-          </a>
+          </button>
         </nav>
       </div>
 
@@ -21,15 +44,15 @@ const Header = () => {
           type="text"
           id="search-input"
           className="search-input"
-          placeholder="Type something..."
+          placeholder="Quick search..."
           readOnly
         />
-        <button type="button" id="search-btn" className="btn-search">
+        <PrimaryButton className="header__btn-search">
           Search
-        </button>
-        <button type="button" id="clear-btn" className="btn-clear">
+        </PrimaryButton>
+        <SecondaryButton className="header__btn-clear">
           Clear
-        </button>
+        </SecondaryButton>
       </div>
     </header>
   );

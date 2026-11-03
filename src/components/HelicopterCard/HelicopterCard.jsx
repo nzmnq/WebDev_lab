@@ -1,4 +1,6 @@
 import React from 'react';
+import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
+import SecondaryButton from '../ui/SecondaryButton/SecondaryButton';
 import './HelicopterCard.css';
 
 const HelicopterCard = ({ helicopter }) => {
@@ -19,12 +21,12 @@ const HelicopterCard = ({ helicopter }) => {
         </p>
         <div className="card__updated">Last updated 3 mins ago</div>
         <div className="card__actions">
-          <button type="button" className="btn-card-edit" data-id={id}>
+          <PrimaryButton className="btn-card-edit" data-id={id}>
             Edit
-          </button>
-          <button type="button" className="btn-card-remove" data-id={id}>
+          </PrimaryButton>
+          <SecondaryButton className="btn-card-remove" data-id={id}>
             Remove
-          </button>
+          </SecondaryButton>
         </div>
       </div>
     </article>

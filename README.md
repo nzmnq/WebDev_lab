@@ -1,9 +1,7 @@
-# Laboratory Work 6: React.js - Home Page
+# Laboratory Work 7: React.js - Catalog Page & Routing
 
 ## Overview
-The goal of this laboratory work is to migrate the helicopter catalog web application (**Variant 8: Helicopter**) developed in Laboratory Work 5 into a modern **React.js** single-page application structure.
-
-The Home page replicates the exact visual design, layout, and structure of Laboratory Work 5 (header, management sidebar, and helicopter cards grid) using modular React **Functional Components** and dedicated CSS stylesheets.
+The goal of this laboratory work is to extend the React application (**Variant 8: Helicopter**) by implementing a multi-page routing architecture using `react-router-dom`, developing a dedicated **Catalog Page** with items list, and modularizing interactive UI elements into reusable components (`PrimaryButton`, `SecondaryButton`, `Select`).
 
 ## Variant Specification (Variant 8)
 - **Entity:** Helicopter
@@ -15,24 +13,25 @@ The Home page replicates the exact visual design, layout, and structure of Labor
   - `description` (string)
 
 ## Requirements & Implementation
-- **React.js Mark-up:** All HTML markup is rendered exclusively via React JSX. The root `public/index.html` file remains untouched with the standard `<div id="root"></div>` mount node.
-- **Base Project Architecture:** Built using standard Create React App (CRA) structure with `react-scripts`.
-- **Wireframe & Design Compliance:** Replicates the exact layout from Laboratory Work 5:
-  - **Header (`Header`):** Brand name (`MyHeli`), navigation menu (`My Helicopters`, `Create Helicopter`), search input (`search-input`), and `Search`/`Clear` action buttons.
-  - **Sidebar (`Sidebar`):** Management controls including speed sort toggle switch, total passenger capacity calculation button, and total passenger display.
-  - **Cards Grid (`CardsGrid`):** Container for rendering helicopter cards via `Array.prototype.map()`.
-  - **Helicopter Card (`HelicopterCard`):** Displays helicopter placeholder image (`235x180`), title, description, technical specs (max speed, passenger capacity), update status timestamp, and action buttons (`Edit`, `Remove`).
-  - **Footer (`Footer`):** Footer element providing branding, navigation links, and copyright notice.
-- **Component Architecture:** UI elements are logically divided into separate files (5 dedicated component folders + App):
-  1. `Header` (`src/components/Header/Header.jsx`, `Header.css`)
-  2. `Sidebar` (`src/components/Sidebar/Sidebar.jsx`, `Sidebar.css`)
-  3. `CardsGrid` (`src/components/CardsGrid/CardsGrid.jsx`, `CardsGrid.css`)
-  4. `HelicopterCard` (`src/components/HelicopterCard/HelicopterCard.jsx`, `HelicopterCard.css`)
-  5. `Footer` (`src/components/Footer/Footer.jsx`, `Footer.css`)
-  6. `App` (`src/App.jsx`, `App.css`)
-- **Functional Components:** All components are written strictly as React Functional Components with props.
-- **Styling:** CSS modular styling matching the clean typography, dimensions, and color palette of Laboratory Work 5.
-- **Functionality Scope:** View-only presentation as required for Lab 6.
+- **Routing Architecture (`react-router-dom`):**
+  - Integrated `react-router-dom` (v6) with `<BrowserRouter>`, `<Routes>`, and `<Route>` components.
+  - Multi-page navigation between:
+    - **Home Page (`/`)**: Overview hero banner, key aviation metrics, and featured helicopter models.
+    - **Catalog Page (`/catalog`)**: Dedicated fleet catalog with controls bar, items grid, and action controls.
+  - `<NavLink>` integration in the `Header` component enabling seamless client-side page switching with active navigation styling and zero page reloads.
+- **Reusable UI Components:**
+  - **`PrimaryButton`** (`src/components/ui/PrimaryButton/`): Reusable primary action button component (used for filters, search, "View More", and catalog triggers).
+  - **`SecondaryButton`** (`src/components/ui/SecondaryButton/`): Reusable secondary action button component (used for clear and reset actions).
+  - **`Select`** (`src/components/ui/Select/`): Reusable form dropdown control supporting customizable labels, option lists, placeholders, and change events.
+- **Catalog Page (`src/pages/Catalog/Catalog.jsx`):**
+  - **Filter & Search Bar:** Features category dropdown, passenger capacity dropdown, sort dropdown, and search input with apply and reset buttons.
+  - **Items Grid:** Dynamically renders the helicopter collection using **`Array.prototype.map()`** and passes individual record objects to the `HelicopterCard` component with a unique `key={helicopter.id}`.
+  - **Bottom Pagination/Action:** Features a centralized "View More" `PrimaryButton`.
+- **Code Style & Functional Components:**
+  - 100% Functional Components with hooks and props.
+  - Modular CSS stylesheets per component and page.
+- **Functionality Scope:**
+  - View-only presentation as specified in requirements (filter, search, and pagination functionality will be completed in subsequent laboratory works).
 
 ## Project Structure
 ```text
@@ -43,21 +42,28 @@ WebDev_lab/
 │   └── manifest.json
 ├── src/
 │   ├── components/
+│   │   ├── ui/
+│   │   │   ├── PrimaryButton/
+│   │   │   │   ├── PrimaryButton.css
+│   │   │   │   └── PrimaryButton.jsx
+│   │   │   ├── SecondaryButton/
+│   │   │   │   ├── SecondaryButton.css
+│   │   │   │   └── SecondaryButton.jsx
+│   │   │   └── Select/
+│   │   │       ├── Select.css
+│   │   │       └── Select.jsx
 │   │   ├── CardsGrid/
-│   │   │   ├── CardsGrid.css
-│   │   │   └── CardsGrid.jsx
 │   │   ├── Footer/
-│   │   │   ├── Footer.css
-│   │   │   └── Footer.jsx
 │   │   ├── Header/
-│   │   │   ├── Header.css
-│   │   │   └── Header.jsx
 │   │   ├── HelicopterCard/
-│   │   │   ├── HelicopterCard.css
-│   │   │   └── HelicopterCard.jsx
 │   │   └── Sidebar/
-│   │       ├── Sidebar.css
-│   │       └── Sidebar.jsx
+│   ├── pages/
+│   │   ├── Home/
+│   │   │   ├── Home.css
+│   │   │   └── Home.jsx
+│   │   └── Catalog/
+│   │       ├── Catalog.css
+│   │       └── Catalog.jsx
 │   ├── data/
 │   │   └── helicopters.js
 │   ├── App.css
@@ -81,6 +87,8 @@ WebDev_lab/
    npm start
    ```
    Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
+   - Navigate to `/` for the Home Page.
+   - Navigate to `/catalog` for the Catalog Page.
 
 3. **Build for production:**
    ```bash
