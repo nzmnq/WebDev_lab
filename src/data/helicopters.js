@@ -38,5 +38,45 @@ export const INITIAL_HELICOPTERS = [
     passengers: 30,
     maxSpeed: 309,
     description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій."
+  },
+  {
+    id: 6,
+    name: "Robinson R44 Raven II",
+    category: "civilian",
+    passengers: 3,
+    maxSpeed: 240,
+    description: "Легкий чотиримісний комерційний вертоліт для приватних польотів, навчання та патрулювання."
+  },
+  {
+    id: 7,
+    name: "Airbus H225 Super Puma",
+    category: "transport",
+    passengers: 24,
+    maxSpeed: 275,
+    description: "Дальній пасажирський і транспортний вертоліт для офшорних місій та перевезення персоналу."
+  },
+  {
+    id: 8,
+    name: "Boeing AH-64 Apache",
+    category: "military",
+    passengers: 2,
+    maxSpeed: 293,
+    description: "Основний ударний вертоліт вогневої підтримки з потужним прицільним та навігаційним комплексом."
+  },
+  {
+    id: 9,
+    name: "Sikorsky S-92 Helibus",
+    category: "rescue",
+    passengers: 19,
+    maxSpeed: 306,
+    description: "Всепогодний пошуково-рятувальний та морський транспортний вертоліт підвищеної безпеки."
+  },
+  {
+    id: 10,
+    name: "Sikorsky CH-53K King Stallion",
+    category: "transport",
+    passengers: 37,
+    maxSpeed: 315,
+    description: "Надважкий транспортний вертоліт нового покоління для перевезення техніки та особового складу."
   }
 ];

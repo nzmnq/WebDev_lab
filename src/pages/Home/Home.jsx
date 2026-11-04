@@ -11,16 +11,20 @@ const Home = () => {
   const [isSorted, setIsSorted] = useState(false);
   const [totalPassengers, setTotalPassengers] = useState('—');
 
-  const displayedHelicopters = isSorted
+  const sortedHelicopters = isSorted
     ? [...helicopters].sort((a, b) => b.maxSpeed - a.maxSpeed)
     : helicopters;
+
+  const displayedHelicopters = showMore
+    ? sortedHelicopters
+    : sortedHelicopters.slice(0, 6);
 
   const handleToggleSort = () => {
     setIsSorted(!isSorted);
   };
 
   const handleCountPassengers = () => {
-    const total = helicopters.reduce((sum, h) => sum + h.passengers, 0);
+    const total = displayedHelicopters.reduce((sum, h) => sum + h.passengers, 0);
     setTotalPassengers(`${total} місць`);
   };
 
@@ -36,21 +40,13 @@ const Home = () => {
       <div className="home-content">
         <CardsGrid helicopters={displayedHelicopters} />
 
-        <div className="home-more">
-          <PrimaryButton onClick={() => setShowMore(!showMore)}>
-            {showMore ? 'Hide info' : 'View more'}
-          </PrimaryButton>
-
-          {showMore && (
-            <div className="home-more__box">
-              <h3 className="home-more__title">Про наш флот вертольотів</h3>
-              <p className="home-more__text">
-                Усі повітряні судна проходять регулярний технічний огляд та готові до виконання
-                транспортних, рятувальних і цивільних місій.
-              </p>
-            </div>
-          )}
-        </div>
+        {sortedHelicopters.length > 6 && (
+          <div className="home-more">
+            <PrimaryButton onClick={() => setShowMore(!showMore)}>
+              {showMore ? 'Show less' : 'View more'}
+            </PrimaryButton>
+          </div>
+        )}
       </div>
     </div>
   );
