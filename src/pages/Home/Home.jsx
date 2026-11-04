@@ -6,10 +6,9 @@ import './Home.css';
 
 const Home = () => {
   return (
-    <div className="home-page">
-      <div className="main-container">
-        <Sidebar totalPassengers="—" isSorted={false} />
-
+    <div className="main-container">
+      <Sidebar totalPassengers="—" isSorted={false} />
+      <div className="home-content">
         <CardsGrid helicopters={INITIAL_HELICOPTERS} />
       </div>
     </div>

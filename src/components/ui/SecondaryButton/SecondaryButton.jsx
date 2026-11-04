@@ -1,22 +1,9 @@
 import React from 'react';
 import './SecondaryButton.css';
 
-const SecondaryButton = ({
-  children,
-  onClick,
-  type = 'button',
-  disabled = false,
-  className = '',
-  ...rest
-}) => {
+const SecondaryButton = ({ children, onClick, type = 'button', className = '' }) => {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={`secondary-btn ${className}`}
-      {...rest}
-    >
+    <button type={type} onClick={onClick} className={`secondary-btn ${className}`}>
       {children}
     </button>
   );

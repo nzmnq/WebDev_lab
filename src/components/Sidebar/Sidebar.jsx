@@ -2,7 +2,7 @@ import React from 'react';
 import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
 import './Sidebar.css';
 
-const Sidebar = ({ totalPassengers = '—', isSorted = false }) => {
+const Sidebar = ({ totalPassengers = '—', isSorted = false, onToggleSort, onCount }) => {
   return (
     <aside className="sidebar">
       <h2 className="sidebar__title">Manage helicopters</h2>
@@ -13,6 +13,7 @@ const Sidebar = ({ totalPassengers = '—', isSorted = false }) => {
           className={`switch-toggle ${isSorted ? 'active' : ''}`}
           id="sort-toggle"
           title="Toggle sorting"
+          onClick={onToggleSort}
         >
           <span className="switch-knob"></span>
         </div>
@@ -22,7 +23,7 @@ const Sidebar = ({ totalPassengers = '—', isSorted = false }) => {
 
       <div className="sidebar__count">
         <div className="sidebar__count-title">Count total passenger capacity:</div>
-        <PrimaryButton id="count-btn" className="btn-count">
+        <PrimaryButton className="btn-count" onClick={onCount}>
           Count
         </PrimaryButton>
       </div>

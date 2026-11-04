@@ -11,7 +11,6 @@ body {
   background-color: #ffffff;
   color: #222222;
   line-height: 1.4;
-  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -19,15 +18,7 @@ a {
   text-decoration: none;
 }
 
-button {
-  font-family: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
 .main-container {
   display: flex;
-  flex: 1;
-  min-height: calc(100vh - 56px - 48px);
+  min-height: calc(100vh - 58px);
 }

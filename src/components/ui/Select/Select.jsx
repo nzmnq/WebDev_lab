@@ -1,52 +1,27 @@
 import React from 'react';
 import './Select.css';
 
-const Select = ({
-  id,
-  name,
-  label,
-  options = [],
-  value,
-  onChange,
-  disabled = false,
-  className = '',
-  placeholder,
-  ...rest
-}) => {
+const Select = ({ id, name, label, options = [], value, onChange }) => {
   return (
-    <div className={`select-group ${className}`}>
+    <div className="select-group">
       {label && (
         <label htmlFor={id} className="select-label">
           {label}
         </label>
       )}
-      <div className="select-wrapper">
-        <select
-          id={id}
-          name={name}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-          className="select-control"
-          {...rest}
-        >
-          {placeholder && (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          )}
-          {options.map((opt, index) => {
-            const val = typeof opt === 'object' ? opt.value : opt;
-            const text = typeof opt === 'object' ? opt.label : opt;
-            return (
-              <option key={index} value={val}>
-                {text}
-              </option>
-            );
-          })}
-        </select>
-        <span className="select-arrow">▼</span>
-      </div>
+      <select
+        id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="select-control"
+      >
+        {options.map((opt, index) => (
+          <option key={index} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

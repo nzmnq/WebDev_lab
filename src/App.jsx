@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
@@ -11,15 +11,12 @@ function App() {
     <BrowserRouter>
       <div className="app">
         <Header />
-
         <main className="app__content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </BrowserRouter>
