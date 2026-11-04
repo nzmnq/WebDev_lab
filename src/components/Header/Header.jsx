@@ -21,13 +21,12 @@ const Header = () => {
           >
             Catalog
           </NavLink>
-          <button
-            type="button"
-            className="header__nav-item"
-            onClick={(e) => e.preventDefault()}
+          <NavLink
+            to="/create"
+            className={({ isActive }) => `header__nav-item ${isActive ? 'active' : ''}`}
           >
             Create Helicopter
-          </button>
+          </NavLink>
         </nav>
       </div>
     </header>
