@@ -5,7 +5,11 @@ import SecondaryButton from '../ui/SecondaryButton/SecondaryButton';
 import { useHelicopters } from '../../context/HelicoptersContext';
 import './HelicopterCard.css';
 
-const HelicopterCard = ({ helicopter }) => {
+const HelicopterCard = ({
+  helicopter,
+  showRemove = true,
+  withLink = true
+}) => {
   const { removeHelicopter } = useHelicopters();
   const { id, name, description, maxSpeed, passengers } = helicopter;
 
@@ -24,15 +28,24 @@ const HelicopterCard = ({ helicopter }) => {
         </p>
         <div className="card__updated">Last updated 3 mins ago</div>
         <div className="card__actions">
-          <Link to={`/item/${id}`} className="card__link">
-            <PrimaryButton className="btn-card-edit">View more</PrimaryButton>
-          </Link>
-          <SecondaryButton
-            className="btn-card-remove"
-            onClick={() => removeHelicopter(id)}
-          >
-            Remove
-          </SecondaryButton>
+          {withLink ? (
+            <Link to={`/item/${id}`} className="card__link">
+              <PrimaryButton className="btn-card-edit">View more</PrimaryButton>
+            </Link>
+          ) : (
+            <PrimaryButton className="btn-card-edit" type="button">
+              View more
+            </PrimaryButton>
+          )}
+
+          {showRemove && (
+            <SecondaryButton
+              className="btn-card-remove"
+              onClick={() => removeHelicopter(id)}
+            >
+              Remove
+            </SecondaryButton>
+          )}
         </div>
       </div>
     </article>
