@@ -1,9 +1,7 @@
 import React from 'react';
 import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar';
-import CardsGrid from './components/CardsGrid/CardsGrid';
 import Footer from './components/Footer/Footer';
-import { INITIAL_HELICOPTERS } from './data/helicopters';
+import Home from './pages/Home/Home';
 import './App.css';
 
 function App() {
@@ -11,10 +9,8 @@ function App() {
     <div className="app">
       <Header />
 
-      <main className="main-container">
-        <Sidebar totalPassengers="—" isSorted={false} />
-
-        <CardsGrid helicopters={INITIAL_HELICOPTERS} />
+      <main className="app__content">
+        <Home />
       </main>
 
       <Footer />

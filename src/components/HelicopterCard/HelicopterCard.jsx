@@ -20,10 +20,7 @@ const HelicopterCard = ({ helicopter }) => {
         <div className="card__updated">Last updated 3 mins ago</div>
         <div className="card__actions">
           <button type="button" className="btn-card-edit" data-id={id}>
-            Edit
-          </button>
-          <button type="button" className="btn-card-remove" data-id={id}>
-            Remove
+            View more
           </button>
         </div>
       </div>
