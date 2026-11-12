@@ -5,7 +5,8 @@ export const INITIAL_HELICOPTERS = [
     category: "military",
     passengers: 14,
     maxSpeed: 295,
-    description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації."
+    description: "Багатоцільовий тактичний вертоліт армії США, розроблений для десантування та евакуації.",
+    image: "/images/1.jpg"
   },
   {
     id: 2,
@@ -13,7 +14,8 @@ export const INITIAL_HELICOPTERS = [
     category: "transport",
     passengers: 55,
     maxSpeed: 315,
-    description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів."
+    description: "Важкий військово-транспортний вертоліт із двома поздовжніми гвинтами для великих вантажів.",
+    image: "/images/2.jpg"
   },
   {
     id: 3,
@@ -21,7 +23,8 @@ export const INITIAL_HELICOPTERS = [
     category: "rescue",
     passengers: 7,
     maxSpeed: 287,
-    description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах."
+    description: "Легкий дводвигуновий багатоцільовий вертоліт, популярний у поліцейських та рятувальних службах.",
+    image: "/images/3.jpg"
   },
   {
     id: 4,
@@ -29,7 +32,8 @@ export const INITIAL_HELICOPTERS = [
     category: "civilian",
     passengers: 4,
     maxSpeed: 222,
-    description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації."
+    description: "Один із наймасовіших і найнадійніших комерційних вертольотів у світовій цивільній авіації.",
+    image: "/images/4.jpg"
   },
   {
     id: 5,
@@ -37,7 +41,8 @@ export const INITIAL_HELICOPTERS = [
     category: "rescue",
     passengers: 30,
     maxSpeed: 309,
-    description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій."
+    description: "Середній багатоцільовий трьохдвигуновий вертоліт для пошуково-рятувальних операцій.",
+    image: "/images/5.jpg"
   },
   {
     id: 6,
@@ -45,7 +50,8 @@ export const INITIAL_HELICOPTERS = [
     category: "civilian",
     passengers: 3,
     maxSpeed: 240,
-    description: "Легкий чотиримісний комерційний вертоліт для приватних польотів, навчання та патрулювання."
+    description: "Легкий чотиримісний комерційний вертоліт для приватних польотів, навчання та патрулювання.",
+    image: "/images/6.jpg"
   },
   {
     id: 7,
@@ -53,7 +59,8 @@ export const INITIAL_HELICOPTERS = [
     category: "transport",
     passengers: 24,
     maxSpeed: 275,
-    description: "Дальній пасажирський і транспортний вертоліт для офшорних місій та перевезення персоналу."
+    description: "Дальній пасажирський і транспортний вертоліт для офшорних місій та перевезення персоналу.",
+    image: "/images/7.jpg"
   },
   {
     id: 8,
@@ -61,7 +68,8 @@ export const INITIAL_HELICOPTERS = [
     category: "military",
     passengers: 2,
     maxSpeed: 293,
-    description: "Основний ударний вертоліт вогневої підтримки з потужним прицільним та навігаційним комплексом."
+    description: "Основний ударний вертоліт вогневої підтримки з потужним прицільним та навігаційним комплексом.",
+    image: "/images/8.jpg"
   },
   {
     id: 9,
@@ -69,7 +77,8 @@ export const INITIAL_HELICOPTERS = [
     category: "rescue",
     passengers: 19,
     maxSpeed: 306,
-    description: "Всепогодний пошуково-рятувальний та морський транспортний вертоліт підвищеної безпеки."
+    description: "Всепогодний пошуково-рятувальний та морський транспортний вертоліт підвищеної безпеки.",
+    image: "/images/9.jpg"
   },
   {
     id: 10,
@@ -77,6 +86,7 @@ export const INITIAL_HELICOPTERS = [
     category: "transport",
     passengers: 37,
     maxSpeed: 315,
-    description: "Надважкий транспортний вертоліт нового покоління для перевезення техніки та особового складу."
+    description: "Надважкий транспортний вертоліт нового покоління для перевезення техніки та особового складу.",
+    image: "/images/10.jpg"
   }
 ];

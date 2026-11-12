@@ -16,7 +16,11 @@ const HelicopterCard = ({
   return (
     <article className="card" data-id={id}>
       <div className="card__image">
-        <span className="card__image-text">235x180</span>
+        {helicopter.image ? (
+          <img src={helicopter.image} alt={name} className="card__img" />
+        ) : (
+          <span className="card__image-text">235x180</span>
+        )}
       </div>
       <div className="card__body">
         <h3 className="card__title">{name}</h3>

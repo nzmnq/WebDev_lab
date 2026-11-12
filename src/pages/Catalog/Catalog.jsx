@@ -61,7 +61,23 @@ const Catalog = () => {
 
   return (
     <div className="catalog-page">
-      <div className="catalog-filters">
+      <aside className="catalog-sidebar">
+        <h2 className="catalog-sidebar__title">Фільтри флоту</h2>
+
+        <div className="catalog-search">
+          <label htmlFor="catalog-search-input" className="catalog-search__label">
+            Пошук за назвою
+          </label>
+          <input
+            id="catalog-search-input"
+            type="text"
+            className="catalog-search__input"
+            placeholder="Введіть запит..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         <Select
           id="category-select"
           label="Категорія"
@@ -78,34 +94,31 @@ const Catalog = () => {
           onChange={(e) => setCapacity(e.target.value)}
         />
 
-        <div className="catalog-search">
-          <label htmlFor="catalog-search-input" className="catalog-search__label">
-            Пошук за назвою або описом
-          </label>
-          <input
-            id="catalog-search-input"
-            type="text"
-            className="catalog-search__input"
-            placeholder="Введіть текст..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+        <div className="catalog-sidebar__actions">
+          <SecondaryButton className="catalog-reset__btn" onClick={handleReset}>
+            Очистити фільтри
+          </SecondaryButton>
+        </div>
+      </aside>
+
+      <main className="catalog-content">
+        <div className="catalog-header">
+          <h1 className="catalog-title">Каталог вертольотів</h1>
+          <span className="catalog-count">
+            Знайдено: {filteredHelicopters.length}
+          </span>
         </div>
 
-        <div className="catalog-reset">
-          <SecondaryButton onClick={handleReset}>Clear</SecondaryButton>
+        <div className="cards-grid">
+          {filteredHelicopters.length === 0 ? (
+            <div className="cards-empty">Вертольотів за запитом не знайдено.</div>
+          ) : (
+            filteredHelicopters.map((item) => (
+              <HelicopterCard key={item.id} helicopter={item} />
+            ))
+          )}
         </div>
-      </div>
-
-      <div className="cards-grid">
-        {filteredHelicopters.length === 0 ? (
-          <div className="cards-empty">Вертольотів за запитом не знайдено.</div>
-        ) : (
-          filteredHelicopters.map((item) => (
-            <HelicopterCard key={item.id} helicopter={item} />
-          ))
-        )}
-      </div>
+      </main>
     </div>
   );
 };

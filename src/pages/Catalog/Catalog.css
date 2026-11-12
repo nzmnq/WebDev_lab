@@ -1,17 +1,33 @@
 .catalog-page {
-  padding: 24px 32px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 24px 64px 24px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
   background-color: #ffffff;
 }
 
-.catalog-filters {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  gap: 16px;
-  align-items: end;
-  padding: 16px;
+.catalog-sidebar {
+  width: 280px;
+  flex-shrink: 0;
   border: 1px solid #b5b5b5;
   background-color: #ffffff;
-  margin-bottom: 24px;
+  border-radius: 6px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 80px;
+}
+
+.catalog-sidebar__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111111;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .catalog-search {
@@ -21,14 +37,14 @@
 }
 
 .catalog-search__label {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   color: #333333;
 }
 
 .catalog-search__input {
   width: 100%;
-  height: 34px;
+  height: 36px;
   padding: 6px 12px;
   font-size: 14px;
   font-family: inherit;
@@ -37,4 +53,75 @@
   outline: none;
   background-color: #ffffff;
   color: #222222;
+}
+
+.catalog-search__input:focus {
+  border-color: #007bff;
+}
+
+.catalog-sidebar__actions {
+  padding-top: 8px;
+}
+
+.catalog-reset__btn {
+  width: 100%;
+  height: 36px;
+}
+
+.catalog-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.catalog-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.catalog-count {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 500;
+}
+
+.catalog-page .cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.catalog-page .card__image {
+  aspect-ratio: 1 / 1;
+  height: auto;
+  width: 100%;
+  background-color: #f3f4f6;
+}
+
+.catalog-page .card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 900px) {
+  .catalog-page {
+    flex-direction: column;
+    padding: 20px 16px;
+  }
+
+  .catalog-sidebar {
+    width: 100%;
+    position: static;
+  }
 }

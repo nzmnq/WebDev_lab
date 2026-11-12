@@ -29,7 +29,11 @@ const ItemPage = () => {
     <div className="item-container">
       <article className="card">
         <div className="card__image item-image">
-          <span className="card__image-text">235x180</span>
+          {helicopter.image ? (
+            <img src={helicopter.image} alt={helicopter.name} className="card__img" />
+          ) : (
+            <span className="card__image-text">235x180</span>
+          )}
         </div>
         <div className="card__body">
           <h1 className="card__title">{helicopter.name}</h1>
