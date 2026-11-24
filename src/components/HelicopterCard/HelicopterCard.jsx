@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PrimaryButton from '../ui/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../ui/SecondaryButton/SecondaryButton';
@@ -8,10 +8,27 @@ import './HelicopterCard.css';
 const HelicopterCard = ({
   helicopter,
   showRemove = true,
-  withLink = true
+  withLink = true,
+  onRemove
 }) => {
   const { removeHelicopter } = useHelicopters();
+  const [isRemoving, setIsRemoving] = useState(false);
   const { id, name, description, maxSpeed, passengers } = helicopter;
+
+  const handleRemove = async () => {
+    setIsRemoving(true);
+    try {
+      if (onRemove) {
+        await onRemove(id);
+      } else {
+        await removeHelicopter(id);
+      }
+    } catch (err) {
+      console.error('Failed to remove helicopter:', err);
+    } finally {
+      setIsRemoving(false);
+    }
+  };
 
   return (
     <article className="card" data-id={id}>
@@ -45,9 +62,10 @@ const HelicopterCard = ({
           {showRemove && (
             <SecondaryButton
               className="btn-card-remove"
-              onClick={() => removeHelicopter(id)}
+              onClick={handleRemove}
+              disabled={isRemoving}
             >
-              Remove
+              {isRemoving ? 'Removing...' : 'Remove'}
             </SecondaryButton>
           )}
         </div>

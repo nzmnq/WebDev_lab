@@ -1,77 +1,74 @@
-# Laboratory Work 7: React.js - Catalog Page & Routing
+# Laboratory Work 9: React.js - Connecting to REST API
 
 ## Overview
-The goal of this laboratory work is to extend the React application (**Variant 8: Helicopter**) by implementing a multi-page routing architecture using `react-router-dom`, developing a dedicated **Catalog Page** with items list, and modularizing interactive UI elements into reusable components (`PrimaryButton`, `SecondaryButton`, `Select`).
+The goal of this laboratory work is to connect the React.js application (**Variant 8: Helicopter**) to a backend REST API server using `axios`, implementing full CRUD operations, URL-parameter filter queries on the Catalog page, and a pure CSS loading Spinner displayed while `GET` requests are in flight.
 
 ## Variant Specification (Variant 8)
 - **Entity:** Helicopter
 - **Attributes:**
   - `id` (number)
   - `name` (string)
+  - `category` (string: `military`, `transport`, `rescue`, `civilian`)
   - `passengers` (number - passenger capacity)
   - `maxSpeed` (number - km/h)
   - `description` (string)
+  - `image` (string)
 
 ## Requirements & Implementation
-- **Routing Architecture (`react-router-dom`):**
-  - Integrated `react-router-dom` (v6) with `<BrowserRouter>`, `<Routes>`, and `<Route>` components.
-  - Multi-page navigation between:
-    - **Home Page (`/`)**: Overview hero banner, key aviation metrics, and featured helicopter models.
-    - **Catalog Page (`/catalog`)**: Dedicated fleet catalog with controls bar, items grid, and action controls.
-  - `<NavLink>` integration in the `Header` component enabling seamless client-side page switching with active navigation styling and zero page reloads.
-- **Reusable UI Components:**
-  - **`PrimaryButton`** (`src/components/ui/PrimaryButton/`): Reusable primary action button component (used for filters, search, "View More", and catalog triggers).
-  - **`SecondaryButton`** (`src/components/ui/SecondaryButton/`): Reusable secondary action button component (used for clear and reset actions).
-  - **`Select`** (`src/components/ui/Select/`): Reusable form dropdown control supporting customizable labels, option lists, placeholders, and change events.
-- **Catalog Page (`src/pages/Catalog/Catalog.jsx`):**
-  - **Filter & Search Bar:** Features category dropdown, passenger capacity dropdown, sort dropdown, and search input with apply and reset buttons.
-  - **Items Grid:** Dynamically renders the helicopter collection using **`Array.prototype.map()`** and passes individual record objects to the `HelicopterCard` component with a unique `key={helicopter.id}`.
-  - **Bottom Pagination/Action:** Features a centralized "View More" `PrimaryButton`.
-- **Code Style & Functional Components:**
-  - 100% Functional Components with hooks and props.
-  - Modular CSS stylesheets per component and page.
-- **Functionality Scope:**
-  - View-only presentation as specified in requirements (filter, search, and pagination functionality will be completed in subsequent laboratory works).
+- **Backend REST API (`server.js` + `data.json`):**
+  - Express.js REST server running on port `5001` (`http://localhost:5001/api`) with CORS enabled and JSON persistence in `data.json`.
+  - Endpoints:
+    - `GET /api/helicopters` — Retrieve helicopters with optional URL query filters (`category`, `capacity`, `search`)
+    - `GET /api/helicopters/count` — Retrieve count and total passenger capacity
+    - `GET /api/helicopters/:id` — Retrieve a single helicopter by ID
+    - `POST /api/helicopters` — Create a new helicopter record
+    - `PUT /api/helicopters/:id` — Update an existing helicopter record
+    - `DELETE /api/helicopters/:id` — Delete a helicopter record
+  - Configurable `GET` latency (`API_DELAY_MS`, default `350` ms) to demonstrate loading states.
+- **Dedicated Axios API Layer (`src/api/helicoptersApi.js`):**
+  - All HTTP requests use a configured `axios` instance (`getHelicopters`, `getHelicopterById`, `createHelicopter`, `updateHelicopter`, `deleteHelicopter`) with zero `fetch()` calls.
+  - Catalog filters (`category`, `capacity`) are passed as URL query parameters via `axios` `params`.
+- **Loading Spinner (`src/components/Spinner/`):**
+  - Pure CSS circular spinner (`load8` style) rendered on Home, Catalog, Item, and Edit pages while `GET` requests are waiting for server responses.
+- **Full CRUD & State Sync (`src/context/HelicoptersContext.jsx`):**
+  - Fetches fleet data from the REST API on initialization (no hardcoded item array).
+  - Supports Create (`/create`), Read (`/`, `/catalog`, `/item/:id`), Update (`/edit/:id`), and Delete (Catalog cards & Item page) backed by `data.json`.
 
 ## Project Structure
 ```text
 WebDev_lab/
 ├── public/
-│   ├── favicon.ico
-│   ├── index.html
-│   └── manifest.json
+│   └── images/
 ├── src/
+│   ├── api/
+│   │   └── helicoptersApi.js
 │   ├── components/
 │   │   ├── ui/
 │   │   │   ├── PrimaryButton/
-│   │   │   │   ├── PrimaryButton.css
-│   │   │   │   └── PrimaryButton.jsx
 │   │   │   ├── SecondaryButton/
-│   │   │   │   ├── SecondaryButton.css
-│   │   │   │   └── SecondaryButton.jsx
 │   │   │   └── Select/
-│   │   │       ├── Select.css
-│   │   │       └── Select.jsx
 │   │   ├── CardsGrid/
 │   │   ├── Footer/
 │   │   ├── Header/
 │   │   ├── HelicopterCard/
-│   │   └── Sidebar/
+│   │   ├── HelicopterForm/
+│   │   ├── Sidebar/
+│   │   └── Spinner/
+│   ├── context/
+│   │   └── HelicoptersContext.jsx
 │   ├── pages/
+│   │   ├── Catalog/
+│   │   ├── CreateHelicopter/
+│   │   ├── EditHelicopter/
 │   │   ├── Home/
-│   │   │   ├── Home.css
-│   │   │   └── Home.jsx
-│   │   └── Catalog/
-│   │       ├── Catalog.css
-│   │       └── Catalog.jsx
-│   ├── data/
-│   │   └── helicopters.js
+│   │   └── ItemPage/
 │   ├── App.css
 │   ├── App.jsx
 │   ├── index.css
 │   └── index.js
-├── .gitignore
+├── data.json
 ├── package.json
+├── server.js
 └── README.md
 ```
 
@@ -82,13 +79,15 @@ WebDev_lab/
    npm install --legacy-peer-deps
    ```
 
-2. **Start the development server:**
+2. **Start both the REST API server and React frontend:**
    ```bash
-   npm start
+   npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
-   - Navigate to `/` for the Home Page.
-   - Navigate to `/catalog` for the Catalog Page.
+   Or run them in separate terminals:
+   ```bash
+   npm run server   # Starts Express REST API at http://localhost:5001
+   npm start        # Starts React app at http://localhost:3000
+   ```
 
 3. **Build for production:**
    ```bash

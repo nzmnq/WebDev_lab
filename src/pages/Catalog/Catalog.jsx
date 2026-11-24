@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HelicopterCard from '../../components/HelicopterCard/HelicopterCard';
+import Spinner from '../../components/Spinner/Spinner';
+import PrimaryButton from '../../components/ui/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../components/ui/SecondaryButton/SecondaryButton';
 import Select from '../../components/ui/Select/Select';
+import { getHelicopters } from '../../api/helicoptersApi';
 import { useHelicopters } from '../../context/HelicoptersContext';
 import './Catalog.css';
 
 const Catalog = () => {
-  const { helicopters } = useHelicopters();
+  const { removeHelicopter } = useHelicopters();
+  const [catalogItems, setCatalogItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
   const [category, setCategory] = useState('all');
   const [capacity, setCapacity] = useState('all');
   const [search, setSearch] = useState('');
+  const [reloadKey, setReloadKey] = useState(0);
 
   const categoryOptions = [
     { value: 'all', label: 'Усі категорії' },
@@ -26,25 +33,45 @@ const Catalog = () => {
     { value: 'large', label: 'Більше 30 пасажирів' }
   ];
 
-  const filteredHelicopters = helicopters.filter((item) => {
-    if (category !== 'all' && item.category !== category) {
-      return false;
-    }
+  useEffect(() => {
+    const controller = new AbortController();
 
-    if (capacity === 'small' && item.passengers > 10) {
-      return false;
-    }
-    if (capacity === 'medium' && (item.passengers <= 10 || item.passengers > 30)) {
-      return false;
-    }
-    if (capacity === 'large' && item.passengers <= 30) {
-      return false;
-    }
+    const loadCatalog = async () => {
+      setIsLoading(true);
+      setError('');
+      try {
+        const data = await getHelicopters({ category, capacity }, controller.signal);
+        setCatalogItems(data);
+      } catch (err) {
+        if (err.name === 'CanceledError' || err.code === 'ERR_CANCELED' || controller.signal.aborted) {
+          return;
+        }
+        setError('Не вдалося завантажити каталог вертольотів. Переконайтеся, що сервер запущений.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    };
 
+    loadCatalog();
+    return () => controller.abort();
+  }, [category, capacity, reloadKey]);
+
+  const handleRemoveHelicopter = async (id) => {
+    try {
+      await removeHelicopter(id);
+      setCatalogItems((prev) => prev.filter((item) => item.id !== Number(id)));
+    } catch (err) {
+      setError('Не вдалося видалити вертоліт.');
+    }
+  };
+
+  const filteredHelicopters = catalogItems.filter((item) => {
     if (search.trim() !== '') {
       const q = search.trim().toLowerCase();
-      const matchName = item.name.toLowerCase().includes(q);
-      const matchDesc = item.description.toLowerCase().includes(q);
+      const matchName = String(item.name || '').toLowerCase().includes(q);
+      const matchDesc = String(item.description || '').toLowerCase().includes(q);
       if (!matchName && !matchDesc) {
         return false;
       }
@@ -105,19 +132,34 @@ const Catalog = () => {
         <div className="catalog-header">
           <h1 className="catalog-title">Каталог вертольотів</h1>
           <span className="catalog-count">
-            Знайдено: {filteredHelicopters.length}
+            {isLoading ? 'Завантаження...' : `Знайдено: ${filteredHelicopters.length}`}
           </span>
         </div>
 
-        <div className="cards-grid">
-          {filteredHelicopters.length === 0 ? (
-            <div className="cards-empty">Вертольотів за запитом не знайдено.</div>
-          ) : (
-            filteredHelicopters.map((item) => (
-              <HelicopterCard key={item.id} helicopter={item} />
-            ))
-          )}
-        </div>
+        {isLoading ? (
+          <Spinner label="Завантаження каталогу..." />
+        ) : error ? (
+          <div className="catalog-error">
+            <p className="catalog-error__text">{error}</p>
+            <PrimaryButton onClick={() => setReloadKey((prev) => prev + 1)}>
+              Спробувати знову
+            </PrimaryButton>
+          </div>
+        ) : (
+          <div className="cards-grid">
+            {filteredHelicopters.length === 0 ? (
+              <div className="cards-empty">Вертольотів за запитом не знайдено.</div>
+            ) : (
+              filteredHelicopters.map((item) => (
+                <HelicopterCard
+                  key={item.id}
+                  helicopter={item}
+                  onRemove={handleRemoveHelicopter}
+                />
+              ))
+            )}
+          </div>
+        )}
       </main>
     </div>
   );

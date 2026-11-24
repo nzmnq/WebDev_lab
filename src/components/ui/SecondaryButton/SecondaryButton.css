@@ -9,3 +9,8 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.secondary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

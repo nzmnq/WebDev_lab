@@ -6,6 +6,7 @@ import Home from './pages/Home/Home';
 import Catalog from './pages/Catalog/Catalog';
 import ItemPage from './pages/ItemPage/ItemPage';
 import CreateHelicopter from './pages/CreateHelicopter/CreateHelicopter';
+import EditHelicopter from './pages/EditHelicopter/EditHelicopter';
 import { HelicoptersProvider } from './context/HelicoptersContext';
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/create" element={<CreateHelicopter />} />
+              <Route path="/edit/:id" element={<EditHelicopter />} />
               <Route path="/item/:id" element={<ItemPage />} />
             </Routes>
           </main>

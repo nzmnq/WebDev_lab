@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import HelicopterCard from '../../components/HelicopterCard/HelicopterCard';
+import Spinner from '../../components/Spinner/Spinner';
 import PrimaryButton from '../../components/ui/PrimaryButton/PrimaryButton';
 import { useHelicopters } from '../../context/HelicoptersContext';
 import './Home.css';
 
 const Home = () => {
-  const { helicopters } = useHelicopters();
+  const { helicopters, loading, error, fetchHelicopters } = useHelicopters();
   const [showMore, setShowMore] = useState(false);
   const [stripIndex, setStripIndex] = useState(0);
 
@@ -179,23 +180,36 @@ const Home = () => {
           <h2 className="home-featured__title">You may like</h2>
         </div>
 
-        <div className="home-featured__grid">
-          {displayedHelicopters.map((heli) => (
-            <HelicopterCard
-              key={heli.id}
-              helicopter={heli}
-              showRemove={false}
-              withLink={true}
-            />
-          ))}
-        </div>
-
-        {helicopters.length > 3 && (
-          <div className="home-more">
-            <PrimaryButton onClick={() => setShowMore(!showMore)}>
-              {showMore ? 'Show less' : 'Show more'}
+        {loading ? (
+          <Spinner label="Завантаження вертольотів..." />
+        ) : error ? (
+          <div className="home-error">
+            <p className="home-error__text">{error}</p>
+            <PrimaryButton onClick={fetchHelicopters}>
+              Спробувати знову
             </PrimaryButton>
           </div>
+        ) : (
+          <>
+            <div className="home-featured__grid">
+              {displayedHelicopters.map((heli) => (
+                <HelicopterCard
+                  key={heli.id}
+                  helicopter={heli}
+                  showRemove={false}
+                  withLink={true}
+                />
+              ))}
+            </div>
+
+            {helicopters.length > 3 && (
+              <div className="home-more">
+                <PrimaryButton onClick={() => setShowMore(!showMore)}>
+                  {showMore ? 'Show less' : 'Show more'}
+                </PrimaryButton>
+              </div>
+            )}
+          </>
         )}
       </section>
     </div>
